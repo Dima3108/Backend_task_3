@@ -1,0 +1,108 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+@using Exercise3.Models;
+@model FormModel
+
+<!DOCTYPE html>
+<html>
+<body>
+    <header>3 Задание</header>
+    <main>
+        <form asp-controller="Read" asp-action="ReadMessage" method="post">
+            <div>
+                <label>
+                    Введите ваше имя:<input type="text" asp-for="name" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Введите ваш email:<input type="text" asp-for="email" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Выберите вашу дату рождения:<input type="date" asp-for="date" />
+                </label>
+            </div>
+            <div>
+                
+                    <label>
+Выберите пол:
+                      @{
+                          Pol[] p = { Pol.Man, Pol.Wuman };
+                          string[] s = { "Мужской", "Женский" };
+                          for (int i = 0; i < p.Length; i++)
+                          {
+                                              <label>
+                                                  @s[i]
+                                                              @if (i == 0)
+                                                              {
+                                                                  <input type="radio" value="@(p[i])" asp-for="pol" checked />
+                                                              }
+                                                              else
+                                                              {
+                                                                  <input type="radio" value="@(p[i])" asp-for="pol"  />
+                                                              }
+                                                          </label>
+                          }
+
+
+}  
+                    </label>
+                
+            </div>
+            <div>
+
+                Выберите количество конечностей:
+                @{ 
+
+                    for (int i = 1; i <= 10; i++) { 
+                                <label>
+                                    @i.ToString()
+                                    @if (i != 1)
+                                    {
+
+
+                                    <input type="radio" value="@i" asp-for="count_con" />
+                                    }
+                else
+                {
+                                <input type="radio" value="@i" asp-for="count_con" checked />
+                }
+                                </label>
+                    }
+                
+                    }
+                </div>
+            <div>
+                <label>
+                    Ваша биография:
+                    <textarea asp-for="biograf"></textarea>
+                </label>
+            </div>
+            <div>
+                <label>
+                    С контрактом ознакомлен
+                    <input type="checkbox" asp-for="AWTC" />
+                </label>
+            </div>
+            <div>
+                <select asp-for="supers" multiple>
+                    @{
+                        string[] sspo = { "бессмертие", "левитация", "прохождение сквозь стены" };
+                        for(int i = 0; i < sspo.Length; i++)
+            {
+                <option value="@sspo[i]">@sspo[i]</option>
+            }
+                    }
+                </select>
+            </div>
+            <div>
+                <button type="submit">Отправить</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

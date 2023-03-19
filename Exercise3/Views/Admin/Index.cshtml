@@ -1,0 +1,54 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+@using Exercise3.Models;
+@using Exercise3.Data; 
+<!DOCTYPE html>
+<html>
+<body>
+    @{ 
+        var array = FormDataProvider.sstoregeData.GetElements();
+        @foreach(var el in array)
+            {
+                <div>
+                    <div>
+                        <label>Имя : @el.name</label>
+                    </div>
+                    <div>
+                        <label>почта: @el.email</label>
+                    </div>
+                    <div>
+                        <label>Дата рождения: @el.date</label> 
+                    </div>
+                    <div>
+                        <label>Пол: @el.pol.ToString()</label>
+                    </div>
+                    <div>
+                        <label>Количество конечностей:  @el.count_con</label>
+                    </div>
+                    <div>
+                        <label>Биография:
+                        <textarea>@el.biograf</textarea>
+                        </label>
+                    </div>
+                    <div>
+                        <div>
+                            Суперспособности:
+                            <div>
+                                @{
+if(el.supers!=null&&el.supers.Length>0)
+                                    foreach(string v in el.supers)
+                {
+                    <div>@v</div>
+                }
+                                }
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+    }
+</body>
+</html>
