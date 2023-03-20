@@ -6,24 +6,29 @@
 @model FormModel
 
 <!DOCTYPE html>
+<head>
+    <link rel="stylesheet" src="~/css/bootstrap/bootstrap.min.css" />
+</head>
 <html>
+
 <body>
     <header>3 Задание</header>
+    
     <main>
-        <form asp-controller="Read" asp-action="ReadMessage" method="post">
+        <form asp-controller="Read" asp-action="ReadMessage" method="post" class="form-control">
             <div>
-                <label>
-                    Введите ваше имя:<input type="text" asp-for="name" />
+                <label class="form-check-label">
+                    Введите ваше имя:<input type="text" asp-for="name" class="form-check-input" />
                 </label>
             </div>
             <div>
-                <label>
-                    Введите ваш email:<input type="text" asp-for="email" />
+                <label class="form-check-label">
+                    Введите ваш email:<input type="text" asp-for="email" class="form-check-input" />
                 </label>
             </div>
             <div>
-                <label>
-                    Выберите вашу дату рождения:<input type="date" asp-for="date" />
+                <label class="form-check-label">
+                    Выберите вашу дату рождения:<input type="date" asp-for="date" class="form-check-input" />
                 </label>
             </div>
             <div>
@@ -39,11 +44,11 @@
                                                   @s[i]
                                                               @if (i == 0)
                                                               {
-                                                                  <input type="radio" value="@(p[i])" asp-for="pol" checked />
+                                                                  <input type="radio" value="@(p[i])" asp-for="pol" class="form-check" checked />
                                                               }
                                                               else
                                                               {
-                                                                  <input type="radio" value="@(p[i])" asp-for="pol"  />
+                                                                  <input type="radio" value="@(p[i])" asp-for="pol" class="form-check"  />
                                                               }
                                                           </label>
                           }
@@ -59,17 +64,17 @@
                 @{ 
 
                     for (int i = 1; i <= 10; i++) { 
-                                <label>
+                                <label class="form-check-label">
                                     @i.ToString()
                                     @if (i != 1)
                                     {
 
 
-                                    <input type="radio" value="@i" asp-for="count_con" />
+                                    <input type="radio" value="@i" asp-for="count_con" class="form-check" />
                                     }
                 else
                 {
-                                <input type="radio" value="@i" asp-for="count_con" checked />
+                                <input type="radio" value="@i" asp-for="count_con" class="form-check" checked />
                 }
                                 </label>
                     }
@@ -77,30 +82,30 @@
                     }
                 </div>
             <div>
-                <label>
+                <label class="form-check-label">
                     Ваша биография:
-                    <textarea asp-for="biograf"></textarea>
+                    <textarea asp-for="biograf" class="form-check-input"></textarea>
                 </label>
             </div>
             <div>
-                <label>
+                <label class="form-check-label">
                     С контрактом ознакомлен
-                    <input type="checkbox" asp-for="AWTC" />
+                    <input type="checkbox" asp-for="AWTC" class="form-check" />
                 </label>
             </div>
             <div>
-                <select asp-for="supers" multiple>
+                <select asp-for="supers" class="custom-select-lg" multiple>
                     @{
                         string[] sspo = { "бессмертие", "левитация", "прохождение сквозь стены" };
                         for(int i = 0; i < sspo.Length; i++)
             {
-                <option value="@sspo[i]">@sspo[i]</option>
+                <option value="@sspo[i]" >@sspo[i]</option>
             }
                     }
                 </select>
             </div>
             <div>
-                <button type="submit">Отправить</button>
+                <button type="submit" class="btn btn-primary">Отправить</button>
             </div>
         </form>
     </main>

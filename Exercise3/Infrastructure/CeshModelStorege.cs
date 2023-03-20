@@ -17,6 +17,7 @@ namespace Exercise3.Infrastructure
             lock (models)
             {
                 models.Add(f);
+                models[models.Count - 1].ID = models.Count;
             }
         }
         public FormModel[] GetElements() =>( (models != null) ? models.ToArray() : null);

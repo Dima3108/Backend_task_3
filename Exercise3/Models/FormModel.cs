@@ -21,6 +21,7 @@ namespace Exercise3.Models
         /// </summary>
         public bool AWTC { get; set; }
         public string []supers{get;set;}
+        public int ID { get; set; }
         public override string ToString()
         {
             string s = "";

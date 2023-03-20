@@ -36,7 +36,7 @@ namespace Exercise3
             {
              // opt.MapRoute(default, "{controller=Home}/{action=Index}/{id?}");  
             });
-            
+            app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 /*endpoints.MapGet("/", async context =>
