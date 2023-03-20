@@ -108,6 +108,6 @@ C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\obj\Debug\net5.0\re
 C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\obj\Debug\net5.0\Exercise3.pdb
 C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\obj\Debug\net5.0\Exercise3.genruntimeconfig.cache
 C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\obj\Debug\net5.0\Razor\Views\Admin\Index.cshtml.g.cs
-C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\bin\Debug\net5.0\wwwroot\css\bootstrap\bootstrap-grid.css
-C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\bin\Debug\net5.0\wwwroot\css\bootstrap\bootstrap-reboot.css
-C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\bin\Debug\net5.0\wwwroot\css\bootstrap\bootstrap.css
+C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\bin\Debug\net5.0\wwwroot\lib\bootstrap\bootstrap-grid.css
+C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\bin\Debug\net5.0\wwwroot\lib\bootstrap\bootstrap-reboot.css
+C:\Users\Дмитрий\github_repo\Backend_task_3\Exercise3\bin\Debug\net5.0\wwwroot\lib\bootstrap\bootstrap.css

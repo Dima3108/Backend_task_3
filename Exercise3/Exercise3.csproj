@@ -12,15 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\css\bootstrap\bootstrap-grid.css">
+    <Content Update="wwwroot\lib\bootstrap\bootstrap-grid.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\css\bootstrap\bootstrap-reboot.css">
+    <Content Update="wwwroot\lib\bootstrap\bootstrap-reboot.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\css\bootstrap\bootstrap.css">
+    <Content Update="wwwroot\lib\bootstrap\bootstrap.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
 </Project>

@@ -7,105 +7,122 @@
 
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" src="~/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap.min.css" />
 </head>
+<style>
+    .div_el{
+        display:block;
+        background-color:aquamarine;
+        align-content:center;
+    }
+</style>
 <html>
-
 <body>
     <header>3 Задание</header>
     
     <main>
         <form asp-controller="Read" asp-action="ReadMessage" method="post" class="form-control">
-            <div>
-                <label class="form-check-label">
-                    Введите ваше имя:<input type="text" asp-for="name" class="form-check-input" />
-                </label>
-            </div>
-            <div>
-                <label class="form-check-label">
-                    Введите ваш email:<input type="text" asp-for="email" class="form-check-input" />
-                </label>
-            </div>
-            <div>
-                <label class="form-check-label">
-                    Выберите вашу дату рождения:<input type="date" asp-for="date" class="form-check-input" />
-                </label>
-            </div>
-            <div>
+            <div class="div_el">
+                <div >
+                   
+                        <label >
+                            Введите ваше имя:
+                        </label><input type="text" asp-for="name" />
                 
+                </div>
+                <div class="div_el">
+                    
+                        <label >
+                            Введите ваш email:
+                        </label><input type="text" asp-for="email" />
+                  
+                        
+                    
+                </div>
+                <div class="div_el">
+                    <label >
+                        Выберите вашу дату рождения:
+                    </label><input type="date" asp-for="date" />
+                   
+                </div>
+                <div class="div_el">
+
                     <label>
-Выберите пол:
-                      @{
-                          Pol[] p = { Pol.Man, Pol.Wuman };
-                          string[] s = { "Мужской", "Женский" };
-                          for (int i = 0; i < p.Length; i++)
-                          {
-                                              <label>
-                                                  @s[i]
-                                                              @if (i == 0)
-                                                              {
-                                                                  <input type="radio" value="@(p[i])" asp-for="pol" class="form-check" checked />
-                                                              }
-                                                              else
-                                                              {
-                                                                  <input type="radio" value="@(p[i])" asp-for="pol" class="form-check"  />
-                                                              }
-                                                          </label>
-                          }
-
-
-}  
-                    </label>
-                
-            </div>
-            <div>
-
-                Выберите количество конечностей:
-                @{ 
-
-                    for (int i = 1; i <= 10; i++) { 
-                                <label class="form-check-label">
-                                    @i.ToString()
-                                    @if (i != 1)
+                        Выберите пол:
+                        @{
+                            Pol[] p = { Pol.Man, Pol.Wuman };
+                            string[] s = { "Мужской", "Женский" };
+                            for (int i = 0; i < p.Length; i++)
+                            {
+                                <label>
+                                    @s[i]
+                                    @if (i == 0)
                                     {
+                                        <input type="radio" value="@(p[i])" asp-for="pol" class="form-check" checked />
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" value="@(p[i])" asp-for="pol" class="form-check" />
+                                    }
+                                </label>
+                            }
+
+
+                        }
+                    </label>
+
+                </div>
+                <div class="div_el">
+
+                    Выберите количество конечностей:
+                    @{
+
+                        for (int i = 1; i <= 10; i++)
+                        {
+                            <label class="form-check-label">
+                                @i.ToString()
+                                @if (i != 1)
+                                {
 
 
                                     <input type="radio" value="@i" asp-for="count_con" class="form-check" />
-                                    }
-                else
-                {
-                                <input type="radio" value="@i" asp-for="count_con" class="form-check" checked />
-                }
-                                </label>
-                    }
-                
+                                }
+                                else
+                                {
+                                    <input type="radio" value="@i" asp-for="count_con" class="form-check" checked />
+                                }
+                            </label>
+                        }
+
                     }
                 </div>
-            <div>
-                <label class="form-check-label">
-                    Ваша биография:
-                    <textarea asp-for="biograf" class="form-check-input"></textarea>
-                </label>
-            </div>
-            <div>
-                <label class="form-check-label">
-                    С контрактом ознакомлен
-                    <input type="checkbox" asp-for="AWTC" class="form-check" />
-                </label>
-            </div>
-            <div>
-                <select asp-for="supers" class="custom-select-lg" multiple>
-                    @{
-                        string[] sspo = { "бессмертие", "левитация", "прохождение сквозь стены" };
-                        for(int i = 0; i < sspo.Length; i++)
-            {
-                <option value="@sspo[i]" >@sspo[i]</option>
-            }
-                    }
-                </select>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Отправить</button>
+                <div class="div_el">
+                    
+                    <label class="form-check-label">
+                        Ваша биография:
+
+                    </label> <textarea asp-for="biograf"></textarea>
+                </div>
+                <div class="div_el">
+                    <label >
+                        С контрактом ознакомлен
+
+                    </label> <input type="checkbox" asp-for="AWTC" class="form-check" />
+                </div>
+                <div class="div_el">
+                    <select asp-for="supers"  multiple>
+                        @{
+                            string[] sspo = { "бессмертие", "левитация", "прохождение сквозь стены" };
+                            for (int i = 0; i < sspo.Length; i++)
+                            {
+                                <option value="@sspo[i]">@sspo[i]</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="div_el">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
             </div>
         </form>
     </main>
