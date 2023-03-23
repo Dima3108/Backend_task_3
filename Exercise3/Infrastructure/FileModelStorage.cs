@@ -15,12 +15,21 @@ namespace Exercise3.Infrastructure
         public const string F_NAME = "data.txt";
         public FileModelStorage()
         {
-            file = File.Open(F_NAME, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+            file = File.Open(F_NAME, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
             streamWriter = new StreamWriter(file, System.Text.Encoding.UTF8);
         }
         public void WriteForm(FormModel model)
         {
-            streamWriter.WriteLine(JsonSerializer.Serialize(model));
+            List<FormModel> m = new List<FormModel>(GetElements().ToList<FormModel>());
+            m.Add(model);
+            file.Position = 0;
+            file.SetLength(0);
+            string s = JsonSerializer.Serialize(m.ToArray());
+            Console.WriteLine(s);
+            streamWriter.WriteLine(s);
+            streamWriter.Flush();
+            file.Flush();
+           // streamWriter.WriteLine(JsonSerializer.Serialize(model));
         }
         public FormModel[] GetElements()
         {
@@ -35,6 +44,8 @@ namespace Exercise3.Infrastructure
                     }
                 }
             }
+            if (cont == null || cont == "")
+                return new FormModel[0];
             FormModel[] m = JsonSerializer.Deserialize<FormModel[]>(cont, options: new JsonSerializerOptions());
             return m;
         }

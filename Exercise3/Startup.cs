@@ -20,7 +20,7 @@ namespace Exercise3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(opt => opt.EnableEndpointRouting = false);
-            services.AddSingleton<FormsStorege, CeshModelStorege>();
+            services.AddSingleton<FormsStorege, FileModelStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
