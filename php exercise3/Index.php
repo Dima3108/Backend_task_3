@@ -73,50 +73,14 @@
                         }
                         ?>
                         </div>
-                       <!-- @{
-                            Pol[] p = { Pol.Man, Pol.Wuman };
-                            string[] s = { "Мужской", "Женский" };
-                            for (int i = 0; i < p.Length; i++)
-                            {
-                                <label>
-                                    @s[i]
-                                    @if (i == 0)
-                                    {
-                                        <input type="radio" value="@(p[i])" asp-for="pol" class="form-check" checked />
-                                    }
-                                    else
-                                    {
-                                        <input type="radio" value="@(p[i])" asp-for="pol" class="form-check" />
-                                    }
-                                </label>
-                            }
-
-
-                        }-->
+                       <!-- -->
                     </label>
 
                 </div>
                 <div class="div_el">
 
                     Выберите количество конечностей:
-                  <!--  @{
-
-                        for (int i = 1; i <= 10; i++)
-                        {
-                            <label class="form-check-label">
-                                @i.ToString()
-                                @if (i != 1)
-                                {
-
-
-                                    <input type="radio" value="@i" asp-for="count_con" class="form-check" />
-                                }
-                                else
-                                {
-                                    <input type="radio" value="@i" asp-for="count_con" class="form-check" checked />
-                                }
-                            </label>
-                        }
+                  <!--  
 
                     }-->
                     <?php
@@ -144,7 +108,7 @@
                     </label> <input type="checkbox" name="AWTC" class="form-check" id="awtc_ch" />
                 </div>
                 <div class="div_el">
-                    <select name="supers"  multiple>
+                    <select name="supers[]"  multiple>
 
                       <!--  @{
                             string[] sspo = { "бессмертие", "левитация", "прохождение сквозь стены" };
@@ -161,7 +125,7 @@
                             $r0=htmlspecialchars($row['sposobnost']);
                             $r1=htmlspecialchars($row['id']);
                             echo<<<_END
-                               <option value="$r1">$r0</option>
+                               <option value="$r0">$r0</option>
                             _END;
                          }
                         ?>
@@ -175,12 +139,12 @@
         <script>
             var but=document.getElementById('awtc_ch');
             document.getElementById('res_but').style="display:none";
-            but.addEventListener('change',function(){
-               if(document.getElementById('awtc_ch').chaked==true){
-                  document.getElementById('res_but').style="display:none";
+            but.addEventListener('click',function(){
+               if(document.getElementById('awtc_ch').checked==true){
+                  document.getElementById('res_but').style="display:block";
                }
                else{
-                  document.getElementById('res_but').style="dispaly:block";
+                  document.getElementById('res_but').style="dispaly:none";
                }    
             });
             </script>
