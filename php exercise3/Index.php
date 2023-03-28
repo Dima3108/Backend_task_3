@@ -19,14 +19,14 @@
                    
                         <label >
                             Введите ваше имя:
-                        </label><input type="text" asp-for="name" />
+                        </label><input type="text" name="name" />
                 
                 </div>
                 <div class="div_el">
                     
                         <label >
                             Введите ваш email:
-                        </label><input type="text" asp-for="email" />
+                        </label><input type="email" name="email" />
                   
                         
                     
@@ -34,7 +34,7 @@
                 <div class="div_el">
                     <label >
                         Выберите вашу дату рождения:
-                    </label><input type="date" asp-for="date" />
+                    </label><input type="date" name="date" />
                    
                 </div>
                 <div class="div_el">
@@ -135,13 +135,13 @@
                     <label class="form-check-label">
                         Ваша биография:
 
-                    </label> <textarea asp-for="biograf"></textarea>
+                    </label> <textarea name="biograf"></textarea>
                 </div>
                 <div class="div_el">
                     <label >
                         С контрактом ознакомлен
 
-                    </label> <input type="checkbox" asp-for="AWTC" class="form-check" />
+                    </label> <input type="checkbox" name="AWTC" class="form-check" id="awtc_ch" />
                 </div>
                 <div class="div_el">
                     <select name="supers"  multiple>
@@ -168,10 +168,22 @@
                     </select>
                 </div>
                 <div class="div_el">
-                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <button type="submit" class="btn btn-primary" id="res_but">Отправить</button>
                 </div>
             </div>
         </form>
+        <script>
+            var but=document.getElementById('awtc_ch');
+            document.getElementById('res_but').style="display:none";
+            but.addEventListener('change',function(){
+               if(document.getElementById('awtc_ch').chaked==true){
+                  document.getElementById('res_but').style="display:none";
+               }
+               else{
+                  document.getElementById('res_but').style="dispaly:block";
+               }    
+            });
+            </script>
 </main>
 </body>
 </html>
