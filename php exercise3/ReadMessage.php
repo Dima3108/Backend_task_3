@@ -26,6 +26,7 @@ $str=$str.$val." ";
     
     return $str;
 }
+  require_once 'ContainPostAttribute.php';
   function ReadMessage(){
     $name=$_POST['name'];
     $email=$_POST['email'];
@@ -34,10 +35,15 @@ $str=$str.$val." ";
     $kolvo=$_POST['count'];
     $biografia=$_POST['biograf'];
     //$awtc=$_POST['AWTC'];
-    $supres=($_POST['supers']);
+    if(ContainsAttribute("supers","#")==""){
+$supres=($_POST['supers']);
     print_r($supres);
     echo "<br>";
     print_r($_POST['supers']);
+    }
+    else{
+      $supres=null;
+    }
     $result=new MessageContent();
     $result->email=$email;
     $result->name=$name;
@@ -48,11 +54,37 @@ $str=$str.$val." ";
     $result->supres=$supres;
     return $result;
   }
+  require_once 'Redirect.php';
+
+  function valid_attributes(){
+    $attributes_n=array('name','email','date');
+    $attributes_errors=array('вы не ввели имя','вы не ввели фамилию','вы не выбрали дату');
+    $message="";
+    for($i=0;$i<count($attributes_errors);$i++){
+             $val=ContainsAttribute($attributes_n[$i],$attributes_errors[$i]);
+             if($val!=""){
+              $message=$message.$val."<br/>";
+             }
+    }
+    if($message!=""){
+      echo "<div>".$message."</div>";
+      return 2;
+    }
+    else{
+      return 1;
+    }
+  }
   if($_POST){
+    if($_POST['suc_token']!=(string)"1"){
+Redirect("Index.php");
+     return;
+    }
     echo "<script>alert('Запрос получен');</script>";
     require_once 'Index.php';
     try{
-
+if(valid_attributes()!=1){
+return;
+}
     
     $content=ReadMessage();
     $supers_="'".//get_content($pdo,$content->supres);
@@ -83,10 +115,10 @@ catch(Exception $e){
 }
   }
   else if($_GET){
-    $host = $_SERVER['HTTP_HOST'];
+    /*$host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $extra = 'Index.php';
-    header("Location: http://$host$uri/$extra");
-
+    header("Location: http://$host$uri/$extra");*/
+Redirect("Index.php");
   }
 ?>

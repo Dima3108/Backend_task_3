@@ -19,14 +19,14 @@
                    
                         <label >
                             Введите ваше имя:
-                        </label><input type="text" name="name" />
+                        </label><input type="text" name="name" id="name" />
                 
                 </div>
                 <div class="div_el">
                     
                         <label >
                             Введите ваш email:
-                        </label><input type="email" name="email" />
+                        </label><input type="email" name="email" id="email" />
                   
                         
                     
@@ -34,7 +34,7 @@
                 <div class="div_el">
                     <label >
                         Выберите вашу дату рождения:
-                    </label><input type="date" name="date" />
+                    </label><input type="date" name="date" id="date" />
                    
                 </div>
                 <div class="div_el">
@@ -131,6 +131,7 @@
                         ?>
                     </select>
                 </div>
+                <input type="hidden" id="suc_token" name="suc_token"/>
                 <div class="div_el">
                     <button type="submit" class="btn btn-primary" id="res_but">Отправить</button>
                 </div>
@@ -148,6 +149,7 @@
                }    
             });
             </script>
+            <script src="Index.js"></script>
 </main>
 </body>
 </html>
