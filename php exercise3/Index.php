@@ -125,7 +125,7 @@
                             $r0=htmlspecialchars($row['sposobnost']);
                             $r1=htmlspecialchars($row['id']);
                             echo<<<_END
-                               <option value="$r0">$r0</option>
+                               <option value="$r1">$r0</option>
                             _END;
                          }
                         ?>

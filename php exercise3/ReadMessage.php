@@ -12,20 +12,7 @@ class MessageContent{
        
   }
 }
-function StrArrayToString($stringarray){
-    $str="";
-    if(isset($stringarray)&&$stringarray!==null){
-      /*for($i=0;$i<count($stringarray);$i++){
-       $str=$str." ".$i." ";
-    }*/
-    foreach( $stringarray as $val)
-    {
-$str=$str.$val." ";
-    }  
-    }
-    
-    return $str;
-}
+  require_once 'Library.php';
   require_once 'ContainPostAttribute.php';
   function ReadMessage(){
     $name=$_POST['name'];
@@ -87,10 +74,7 @@ return;
 }
     
     $content=ReadMessage();
-    $supers_="'".//get_content($pdo,$content->supres);
-    StrArrayToString(($content->supres)).
-    "'"
-    ;
+    
     $name_=get_content($pdo,$content->name);
     $email_=get_content($pdo,$content->email);
     $date_=get_content($pdo,$content->date);
@@ -100,14 +84,31 @@ return;
     get_content($pdo,$content->biografia)//.
     //"'"
     ;
-    $query="INSERT INTO users(name,email,date,count_conech,superspos,polid,comment) VALUES"."(
-        $name_,$email_,$date_,$count_,$supers_,$pol_,$comment_
+    $query="INSERT INTO users(name,email,date,count_conech,polid,comment) VALUES"."(
+        $name_,$email_,$date_,$count_,$pol_,$comment_
     )";
         echo "<br>";
     echo $query;
     echo "<br>";
     $result = $pdo->query($query);
+
+    if($content->supres!=null){
+      $query="SELECT id FROM users WHERE name=$name_ AND email = $email_ AND date = $date_ AND count_conech = $count_ AND polid = $pol_ AND comment = $comment_";
+      $result = $pdo->query($query);
+      while($row=$result->fetch()){
+        $id__ = htmlspecialchars($row['id']);
+
+      }
+      $id_=get_content($pdo,$id__);
+      for($i=0;$i<count($content->supres);$i++){
+        $supid_=get_content($pdo,$content->supres[$i]);
+        $query="INSERT INTO user_supers (iduser ,idsuper) VALUES"."($id_,$supid_)";
+       $result= $pdo->query($query);
+
+      }
+    }
     echo "<script>alert('Запрос обработан');</script>";
+
 }
 catch(Exception $e){
   $mes=  $e->getMessage();
