@@ -1,0 +1,4 @@
+select emp.last_name, dept.department_name,loc.city ,loc.street_address
+from employees emp, departments dept, locations  loc
+where emp.commission_pct is not null AND emp.department_id = dept.department_id AND loc.location_id = dept.location_id 
+;
