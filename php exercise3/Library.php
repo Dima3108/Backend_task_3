@@ -1,4 +1,5 @@
 <?php
+require_once 'databaseconnection.php';
 function StrArrayToString($stringarray)
 {
     $str = "";
@@ -25,5 +26,8 @@ function DIV_StopStart()
 {
     DIV_Stop();
     DIV_Start();
+}
+function WriteLine($value){
+    echo "<br>".$value."</br>";
 }
 ?>

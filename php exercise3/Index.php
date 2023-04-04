@@ -43,7 +43,8 @@
                         Выберите пол:
                        
                         <?php 
-                            require_once 'databaseconnection.php';
+                         //   require_once 'databaseconnection.php';
+                        require_once 'LibraryPchMain.php';
                         $query = "SELECT * FROM POL";
                         $result = $pdo->query($query);
                         $count=0;
@@ -99,7 +100,7 @@
                     <label class="form-check-label">
                         Ваша биография:
 
-                    </label> <textarea name="biograf"></textarea>
+                    </label> <textarea name="biograf" id="commit"></textarea>
                 </div>
                 <div class="div_el">
                     <label >
@@ -118,7 +119,8 @@
                             }
                         }-->
                         <?php
-                        require_once 'databaseconnection.php';
+                       // require_once 'databaseconnection.php';
+                        require_once 'LibraryPchMain.php';
                         $query = "SELECT * FROM  supersposobnosti";
                         $result = $pdo->query($query);
                          while ($row = $result->fetch()){
@@ -132,6 +134,9 @@
                     </select>
                 </div>
                 <input type="hidden" id="suc_token" name="suc_token"/>
+                <div>
+                    <h3>Для отправки формы вы должны согласиться с контрактом. </h3>
+                        </div>
                 <div class="div_el">
                     <button type="submit" class="btn btn-primary" id="res_but">Отправить</button>
                 </div>
@@ -150,6 +155,7 @@
             });
             </script>
             <script src="Index.js"></script>
+            <script src="SaveDataIndex.js"></script>
 </main>
 </body>
 </html>

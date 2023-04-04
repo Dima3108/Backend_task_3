@@ -1,19 +1,6 @@
 <?php
-class MessageContent{
-  public  $email;
-  public $name;
-  public $date;
-  public $pol;
-  public $kolvo;
-  public $biografia;
-  //public $awtc;
-  public $supres;
- function __construct(){
-       
-  }
-}
-  require_once 'Library.php';
-  require_once 'ContainPostAttribute.php';
+
+  require_once 'LibraryPchMain.php';
   function ReadMessage(){
     $name=$_POST['name'];
     $email=$_POST['email'];
@@ -24,9 +11,9 @@ class MessageContent{
     //$awtc=$_POST['AWTC'];
     if(ContainsAttribute("supers","#")==""){
 $supres=($_POST['supers']);
-    print_r($supres);
+   /* print_r($supres);
     echo "<br>";
-    print_r($_POST['supers']);
+    print_r($_POST['supers']);*/
     }
     else{
       $supres=null;
@@ -41,9 +28,9 @@ $supres=($_POST['supers']);
     $result->supres=$supres;
     return $result;
   }
-  require_once 'Redirect.php';
+  
 
-  function valid_attributes(){
+  function valid_attributes($pdo){
     $attributes_n=array('name','email','date');
     $attributes_errors=array('вы не ввели имя','вы не ввели фамилию','вы не выбрали дату');
     $message="";
@@ -53,6 +40,17 @@ $supres=($_POST['supers']);
               $message=$message.$val."<br/>";
              }
     }
+    try{
+      $datestr=get_content($pdo,htmlspecialchars($_POST['date']));
+      $str=(string)($datestr);
+     $date_f=date_create($_POST['date']);
+      if(strlen($str)<=0||$str==''||$_POST['date']===null||$_POST['date']==null){
+        $message="Проверьте корректность даты";
+      }
+    }
+    catch(Exception $e){
+       $message="Проверьте корректность даты";
+    }
     if($message!=""){
       echo "<div>".$message."</div>";
       return 2;
@@ -61,6 +59,8 @@ $supres=($_POST['supers']);
       return 1;
     }
   }
+
+
   if($_POST){
     if($_POST['suc_token']!=(string)"1"){
 Redirect("Index.php");
@@ -69,12 +69,16 @@ Redirect("Index.php");
     echo "<script>alert('Запрос получен');</script>";
     require_once 'Index.php';
     try{
-if(valid_attributes()!=1){
+if(valid_attributes($pdo)!=1){
 return;
+}else {
+  //WriteLine("Success");
 }
     
     $content=ReadMessage();
-    
+    /*WriteLine("@");
+    print_r($content);
+    WriteLine("");*/
     $name_=get_content($pdo,$content->name);
     $email_=get_content($pdo,$content->email);
     $date_=get_content($pdo,$content->date);
@@ -88,7 +92,7 @@ return;
         $name_,$email_,$date_,$count_,$pol_,$comment_
     )";
         echo "<br>";
-    echo $query;
+   // echo $query;
     echo "<br>";
     $result = $pdo->query($query);
 
