@@ -1,4 +1,5 @@
 <?php
+define("SUCCESSR",1);
 require_once 'databaseconnection.php';
 function StrArrayToString($stringarray)
 {

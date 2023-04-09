@@ -29,7 +29,16 @@ $supres=($_POST['supers']);
     return $result;
   }
   
-
+function valid_name($name){
+if(preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)){
+  setcookie('user_nam','',-1);
+  return SUCCESSR;
+}
+else{
+  setcookie('user_nam','имя должно начинатся с символов a-z или а-я',TIME_COOK);
+  return -1;
+}
+}
   function valid_attributes($pdo){
     $attributes_n=array('name','email','date');
     $attributes_errors=array('вы не ввели имя','вы не ввели фамилию','вы не выбрали дату');
