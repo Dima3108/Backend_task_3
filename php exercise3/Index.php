@@ -20,14 +20,31 @@
                         <label >
                             Введите ваше имя:
                         </label><input type="text" name="name" id="name" />
-                
+                        <?php
+                        if(isset($_COOKIE['user_name'])){
+                            $ckval=$_COOKIE['user_name'];
+                            echo "<span id='name_sp' value='$ckval'></span>";
+                        }
+                        else{
+                            echo "<span id='name_sp'></span>";
+                        }
+                        ?>
+                        
                 </div>
                 <div class="div_el">
                     
                         <label >
                             Введите ваш email:
                         </label><input type="email" name="email" id="email" />
-                  
+                        <?php
+                        if (isset($_COOKIE['user_email'])) {
+                            $ckval = $_COOKIE['user_email'];
+                            echo "<span id='email_sp' value='$ckval'></span>";
+                        } else {
+                            echo "<span id='name_sp'></span>";
+                        }
+                        ?>
+                       <!-- <span id="email_sp"></span>-->
                         
                     
                 </div>
@@ -35,7 +52,15 @@
                     <label >
                         Выберите вашу дату рождения:
                     </label><input type="date" name="date" id="date" />
-                   
+                    <?php
+                    if (isset($_COOKIE['user_date'])) {
+                        $ckval = $_COOKIE['user_date'];
+                        echo "<span id='date_sp' value='$ckval'></span>";
+                    } else {
+                        echo "<span id='date_sp'></span>";
+                    }
+                    ?>
+                   <!-- <span id="date_sp"></span>-->
                 </div>
                 <div class="div_el">
 

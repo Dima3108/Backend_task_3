@@ -33,9 +33,11 @@ $supres=($_POST['supers']);
   function valid_attributes($pdo){
     $attributes_n=array('name','email','date');
     $attributes_errors=array('вы не ввели имя','вы не ввели фамилию','вы не выбрали дату');
+    $attr_htmlid=array('name_sp','email_sp','date_sp');
+    $attr_cokie=array('user_nam','user_email','user_date');
     $message="";
     for($i=0;$i<count($attributes_errors);$i++){
-             $val=ContainsAttribute($attributes_n[$i],$attributes_errors[$i]);
+             $val=ContainsAttribute($attributes_n[$i],null,$attr_htmlid[$i]);
              if($val!=""){
               $message=$message.$val."<br/>";
              }
@@ -46,6 +48,7 @@ $supres=($_POST['supers']);
      $date_f=date_create($_POST['date']);
       if(strlen($str)<=0||$str==''||$_POST['date']===null||$_POST['date']==null){
         $message="Проверьте корректность даты";
+        setcookie($attr_cokie[2],'Проверьте корректность даты',365*24*60*60);
       }
     }
     catch(Exception $e){
