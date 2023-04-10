@@ -31,13 +31,44 @@ $supres=($_POST['supers']);
   
 function valid_name($name){
 if(preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)){
-  setcookie('user_nam','',-1);
+  $cont=preg_match('/[^a-z]/i',$name);
+  
+  echo $cont;
+  $cont=preg_match('/[^а-я]/i',$cont);
+  if(preg_match('/[^0-9]/i',$cont)){
+    setcookie('user_nam','имя должно состоять из букв a-z , а-я , цифр 0-9 ',TIME_COOK);
+    return -2;
+  }
+  else{
+    setcookie('user_nam','',-1);
   return SUCCESSR;
+  }
+  
 }
 else{
   setcookie('user_nam','имя должно начинатся с символов a-z или а-я',TIME_COOK);
   return -1;
 }
+}
+function uncorrect_email(){
+   setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
+    return -1;
+}
+function valid_email($email){
+  if(preg_match('/^[a-z]/i',$email)||preg_match('/^[0-9]/i',$email)){
+     if(preg_match('/[^.]$/',$email)){
+        if(preg_match('/@/',$email)){
+           $val=preg_match('/@$/',$email);
+           setcookie('user_email','',-1);   
+        }
+        else return uncorrect_email();
+     }
+     else return uncorrect_email();
+  }
+  else{
+   return uncorrect_email();
+   
+  }
 }
   function valid_attributes($pdo){
     $attributes_n=array('name','email','date');
@@ -50,6 +81,9 @@ else{
              if($val!=""){
               $message=$message.$val."<br/>";
              }
+    }
+    if(valid_name($_POST['name'])!=SUCCESSR){
+
     }
     try{
       $datestr=get_content($pdo,htmlspecialchars($_POST['date']));
@@ -79,13 +113,15 @@ Redirect("Index.php");
      return;
     }
     echo "<script>alert('Запрос получен');</script>";
+    $status=valid_attributes($pdo);
     require_once 'Index.php';
-    try{
-if(valid_attributes($pdo)!=1){
+    if($status!=1){
 return;
 }else {
   //WriteLine("Success");
 }
+    try{
+
     
     $content=ReadMessage();
     /*WriteLine("@");
