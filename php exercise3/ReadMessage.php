@@ -30,8 +30,11 @@ $supres=($_POST['supers']);
   }
   
 function valid_name($name){
-if(preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)){
-  $cont=preg_match('/[^a-z]/i',$name);
+if(
+  preg_match('/^[[a-z]|[а-я]]/i',$name)
+ // preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)
+  ){
+  /*$cont=preg_match('/[^a-z]/i',$name);
   
   echo $cont;
   $cont=preg_match('/[^а-я]/i',$cont);
@@ -39,10 +42,24 @@ if(preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)){
     setcookie('user_nam','имя должно состоять из букв a-z , а-я , цифр 0-9 ',TIME_COOK);
     return -2;
   }
-  else{
-    setcookie('user_nam','',-1);
+  else{*/
+    if(preg_match('/[[a-z][а-я][0-9]]/i',$name)){
+      $len=strlen($name);
+      if(preg_match('/([a-z]|[а-я]|[0-9]){'.$len.',}?/i',$name)){
+        setcookie('user_nam','',-1);
   return SUCCESSR;
-  }
+      }
+      else{
+        setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
+        return -2;
+      }
+
+    }
+    else{
+      setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
+      return -2;
+    }
+ // }
   
 }
 else{
@@ -55,7 +72,7 @@ function uncorrect_email(){
     return -1;
 }
 function valid_email($email){
-  if(preg_match('/^[a-z]/i',$email)||preg_match('/^[0-9]/i',$email)){
+  /*if(preg_match('/^[a-z]/i',$email)||preg_match('/^[0-9]/i',$email)){
      if(preg_match('/[^.]$/',$email)){
         if(preg_match('/@/',$email)){
            $val=preg_match('/@$/',$email);
@@ -68,7 +85,23 @@ function valid_email($email){
   else{
    return uncorrect_email();
    
+  }*/
+  if(preg_match('/[[a-z]|[0-9]|[.]|[@]]/i' ,$email)){
+    if(preg_match('/@+/',$email)&&preg_match('/[.]+/',$email)&&preg_match('/@?/',$email)){
+        if(preg_match('/^[^[@.]]/',$email)&&preg_match('/$[^[@.]]/',$email)){
+           if(preg_match('/$[a-z]/',$email)){
+            $len=strlen($email);
+            if(preg_match('/([a-z]|[0-9]|[@.]){'.$len.',}?/',$email)){
+                setcookie('user_email', '', -1);
+            } else
+            return uncorrect_email();
+        }
+        } else
+        return uncorrect_email();
+    } else
+      return uncorrect_email();
   }
+  else return uncorrect_email();
 }
   function valid_attributes($pdo){
     $attributes_n=array('name','email','date');
