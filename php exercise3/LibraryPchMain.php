@@ -8,5 +8,5 @@ require_once 'Library.php';
 require_once 'databaseconnection.php';
 require_once 'Redirect.php';
 require_once 'ContainPostAttribute.php';
-
+require_once 'Cookie_lib.php';
 ?>

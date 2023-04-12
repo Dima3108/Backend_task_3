@@ -43,32 +43,37 @@ if(
     return -2;
   }
   else{*/
-    if(preg_match('/[[a-z][а-я][0-9]]/i',$name)){
+    if(preg_match('/[[a-z]|[а-я]|[0-9]]/i',$name)){
       $len=strlen($name);
       if(preg_match('/([a-z]|[а-я]|[0-9]){'.$len.',}?/i',$name)){
-        setcookie('user_nam','',-1);
+      //  setcookie('user_nam','',-1);
+      disable_cookie('user_nam');
   return SUCCESSR;
       }
       else{
-        setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
+      //  setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
+      enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
         return -2;
       }
 
     }
     else{
-      setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
+     // setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
+     enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
       return -2;
     }
  // }
   
 }
 else{
-  setcookie('user_nam','имя должно начинатся с символов a-z или а-я',TIME_COOK);
+ // setcookie('user_nam','имя должно начинатся с символов a-z или а-я',TIME_COOK);
+ enable_cookie('user_nam','имя должно начинатся с символов a-z или а-я');
   return -1;
 }
 }
 function uncorrect_email(){
-   setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
+   //setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
+   disable_cookie('user_email');
     return -1;
 }
 function valid_email($email){
@@ -86,7 +91,7 @@ function valid_email($email){
    return uncorrect_email();
    
   }*/
-  if(preg_match('/[[a-z]|[0-9]|[.]|[@]]/i' ,$email)){
+  /*if(preg_match('/[[a-z]|[0-9]|[.]|[@]]/i' ,$email)){
     if(preg_match('/@+/',$email)&&preg_match('/[.]+/',$email)&&preg_match('/@?/',$email)){
         if(preg_match('/^[^[@.]]/',$email)&&preg_match('/$[^[@.]]/',$email)){
            if(preg_match('/$[a-z]/',$email)){
@@ -100,6 +105,47 @@ function valid_email($email){
         return uncorrect_email();
     } else
       return uncorrect_email();
+  }
+  else return uncorrect_email();*/
+  $len=strlen($email);
+  $char0=$email[0];
+  if(preg_match('/[a-z]|[0-9]/i',$char0)){
+     $charn=$email[$len-1];
+     if(preg_match('/[a-b]/i',$charn)){
+        $is_point=2;
+        $is_dog=2;
+        for($i=$len-2;$i>=1;$i--){
+            switch($email[$i]){
+              case '.':
+                $is_point=SUCCESSR;
+                break;
+                case '@':
+                  if($is_point==SUCCESSR){
+                    $is_dog=SUCCESSR;
+                  }
+                  else return uncorrect_email();
+                  break;
+                  default :
+                    if(preg_match('/[a-z]|[0-9]/i',$email[$i])){
+
+                    }
+                    else{
+                      return uncorrect_email();
+                    }
+                  break;
+            }
+        }
+        if($is_dog==SUCCESSR&&$is_point==SUCCESSR){
+          disable_cookie('user_email');
+          return SUCCESSR;
+        }
+        else{
+          return uncorrect_email();
+        }
+     }
+     else {
+        return uncorrect_email();
+     }
   }
   else return uncorrect_email();
 }
@@ -115,16 +161,23 @@ function valid_email($email){
               $message=$message.$val."<br/>";
              }
     }
-    if(valid_name($_POST['name'])!=SUCCESSR){
-
-    }
+  $status = valid_name($_POST['name']);
+  if ($status != 1) {
+    //return 2;
+    echo "<br>" . $status . "-------------------------------------------------------</br>";
+  }
+  $status2 = valid_email($_POST['email']);
+  if ($status2 != 1) {
+    //return 2;
+  }
     try{
       $datestr=get_content($pdo,htmlspecialchars($_POST['date']));
       $str=(string)($datestr);
      $date_f=date_create($_POST['date']);
       if(strlen($str)<=0||$str==''||$_POST['date']===null||$_POST['date']==null){
         $message="Проверьте корректность даты";
-        setcookie($attr_cokie[2],'Проверьте корректность даты',365*24*60*60);
+      //  setcookie($attr_cokie[2],'Проверьте корректность даты',365*24*60*60);
+      enable_cookie($attr_cokie[2], 'Проверьте корректность даты');
       }
     }
     catch(Exception $e){
