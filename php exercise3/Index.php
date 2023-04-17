@@ -19,48 +19,70 @@
                    
                         <label >
                             Введите ваше имя:
-                        </label><input type="text" name="name" id="name" />
+                        </label>
+                        <input type="text" name="name" id="name" value="
+                        <?php
+                        if (isset($_COOKIE['user_nam'])) {
+                            $ckval = $_COOKIE['user_nam'];
+echo $ckval;
+
+                        }
+                        ?>
+                        " />
                         <?php
                         if(isset($_COOKIE['user_nam'])){
                             $ckval=$_COOKIE['user_nam'];
-                            echo "<span id='name_sp' value='$ckval'></span>";
+                           
+                          
                         }
                         else{
-                            echo "<span id='name_sp'></span>";
+                           
                         }
                         ?>
-                        
+                        <span id='name_sp'></span>
                 </div>
                 <div class="div_el">
                     
                         <label >
                             Введите ваш email:
-                        </label><input type="email" name="email" id="email" />
+                        </label><input type="email" name="email" id="email" value="
                         <?php
                         if (isset($_COOKIE['user_email'])) {
                             $ckval = $_COOKIE['user_email'];
-                            echo "<span id='email_sp' value='$ckval'></span>";
+                            // GenerateScriptForInsertValue("email",$ckval);
+                            //echo "<span id='email_sp'>".$ckval."</span>";
+                            echo $ckval;
+                        }   
+                        ?>" />
+                        <?php
+                        if (isset($_COOKIE['user_email'])) {
+                            $ckval = $_COOKIE['user_email'];
+                           // GenerateScriptForInsertValue("email",$ckval);
+                            //echo "<span id='email_sp'>".$ckval."</span>";
                         } else {
-                            echo "<span id='name_sp'></span>";
+                           // echo "<span id='name_sp'></span>";
                         }
                         ?>
-                       <!-- <span id="email_sp"></span>-->
+                        <span id="email_sp"></span>
                         
                     
                 </div>
                 <div class="div_el">
                     <label >
                         Выберите вашу дату рождения:
-                    </label><input type="date" name="date" id="date" />
-                    <?php
+                    </label>
+                    <input type="date" name="date" id="date" />
+                    <!--<?php
                     if (isset($_COOKIE['user_date'])) {
                         $ckval = $_COOKIE['user_date'];
-                        echo "<span id='date_sp' value='$ckval'></span>";
+                       // GenerateScriptForInsertValue("date",$ckval);
+                       /* echo "<span id='date_sp' >".$ckval
+                        ."</span>";*/
                     } else {
-                        echo "<span id='date_sp'></span>";
+                       // echo "<span id='date_sp'></span>";
                     }
-                    ?>
-                   <!-- <span id="date_sp"></span>-->
+                    ?>-->
+                   <span id="date_sp"></span>
                 </div>
                 <div class="div_el">
 
@@ -136,13 +158,7 @@
                 <div class="div_el">
                     <select name="supers[]"  multiple>
 
-                      <!--  @{
-                            string[] sspo = { "бессмертие", "левитация", "прохождение сквозь стены" };
-                            for (int i = 0; i < sspo.Length; i++)
-                            {
-                                <option value="@sspo[i]">@sspo[i]</option>
-                            }
-                        }-->
+                      
                         <?php
                        // require_once 'databaseconnection.php';
                         require_once 'LibraryPchMain.php';
@@ -158,7 +174,10 @@
                         ?>
                     </select>
                 </div>
-                <input type="hidden" id="suc_token" name="suc_token"/>
+                <?php
+                echo "<input type='hidden' id='suc_token' name='suc_token' value='".get_default_tocken()."'>";
+                ?>
+              <!--  <input type="hidden" id="suc_token" name="suc_token" />-->
                 <div>
                     <h3>Для отправки формы вы должны согласиться с контрактом. </h3>
                         </div>
@@ -179,8 +198,8 @@
                }    
             });
             </script>
-            <script src="Index.js"></script>
-          <!--  <script src="SaveDataIndex.js"></script>-->
+          <!--  <script src="Index.js"></script>-->
+          <!-- <script src="SaveDataIndex.js"></script>-->
 </main>
 </body>
 </html>

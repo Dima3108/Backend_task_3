@@ -72,41 +72,12 @@ else{
 }
 }
 function uncorrect_email(){
-   //setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
-   disable_cookie('user_email');
+   setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
+  // disable_cookie('user_email');
     return -1;
 }
 function valid_email($email){
-  /*if(preg_match('/^[a-z]/i',$email)||preg_match('/^[0-9]/i',$email)){
-     if(preg_match('/[^.]$/',$email)){
-        if(preg_match('/@/',$email)){
-           $val=preg_match('/@$/',$email);
-           setcookie('user_email','',-1);   
-        }
-        else return uncorrect_email();
-     }
-     else return uncorrect_email();
-  }
-  else{
-   return uncorrect_email();
-   
-  }*/
-  /*if(preg_match('/[[a-z]|[0-9]|[.]|[@]]/i' ,$email)){
-    if(preg_match('/@+/',$email)&&preg_match('/[.]+/',$email)&&preg_match('/@?/',$email)){
-        if(preg_match('/^[^[@.]]/',$email)&&preg_match('/$[^[@.]]/',$email)){
-           if(preg_match('/$[a-z]/',$email)){
-            $len=strlen($email);
-            if(preg_match('/([a-z]|[0-9]|[@.]){'.$len.',}?/',$email)){
-                setcookie('user_email', '', -1);
-            } else
-            return uncorrect_email();
-        }
-        } else
-        return uncorrect_email();
-    } else
-      return uncorrect_email();
-  }
-  else return uncorrect_email();*/
+  
   $len=strlen($email);
   $char0=$email[0];
   if(preg_match('/[a-z]|[0-9]/i',$char0)){
@@ -155,11 +126,16 @@ function valid_email($email){
     $attr_htmlid=array('name_sp','email_sp','date_sp');
     $attr_cokie=array('user_nam','user_email','user_date');
     $message="";
+    $is_empty_attr=SUCCESSR;
     for($i=0;$i<count($attributes_errors);$i++){
-             $val=ContainsAttribute($attributes_n[$i],null,$attr_htmlid[$i]);
+             $val=ContainsAttribute($attributes_n[$i],$attr_htmlid[$i],$attr_cokie[$i]);
              if($val!=""){
               $message=$message.$val."<br/>";
+              $is_empty_attr=$is_empty_attr-2*($i+1);
              }
+    }
+    if($is_empty_attr!=SUCCESSR){
+      return $is_empty_attr;
     }
   $status = valid_name($_POST['name']);
   if ($status != 1) {
@@ -194,18 +170,24 @@ function valid_email($email){
 
 
   if($_POST){
-    if($_POST['suc_token']!=(string)"1"){
+    if(isset($_POST['suc_token'])&&$_POST['suc_token']!=(string)"1"){
 Redirect("Index.php");
      return;
     }
     echo "<script>alert('Запрос получен');</script>";
     $status=valid_attributes($pdo);
+    
+    if($status!=SUCCESSR){
     require_once 'Index.php';
-    if($status!=1){
 return;
 }else {
+  $attr_cokie=array('user_nam','user_email','user_date');
+for($j=0;$j<count($attr_cokie);$j++){
+  disable_cookie($attr_cokie[$j]);
+}
   //WriteLine("Success");
 }
+require_once 'Index.php';
     try{
 
     

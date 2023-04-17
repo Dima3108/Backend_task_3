@@ -3,10 +3,16 @@
 require_once 'LibraryPchMain.php';
 function ContainsAttribute($attr_name,$error_message,$id_spa=null,$cokie_name=null){
 if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
+   
    if($cokie_name!=null){
      // setcookie($cokie_name,"",-1);
-     disable_cookie($cokie_name);
+     //disable_cookie($cokie_name);
+        enable_cookie($cokie_name,$_POST[$attr_name]);
    }
+   echo "<script>";
+         echo "var s=document.getElementById('$id_spa');";
+         echo "s.value='';";
+         echo "</script>"; 
    return "";
 }
 else{
@@ -16,12 +22,21 @@ else{
    echo "s.value='$error_message';";
    echo "</script>";
    }
-   if($cokie_name!=null){
+  /* if($cokie_name!=null){
      
-      //setcookie($cokie_name,$error_message,TIME_COOK);
+   
       enable_cookie($cokie_name,$error_message);
-   }
+   }*/
    return $error_message;
 } 
+}
+function GenerateScriptForInsertValue($el_id,$el_value){
+  
+  echo "<script>";
+   echo "{";
+      echo "var d".$el_id."=document.getElementById('".$el_id."')";
+      echo "d".$el_id.".value='$el_value'";
+    echo "}" ;
+  echo "</script>";
 }
 ?>
