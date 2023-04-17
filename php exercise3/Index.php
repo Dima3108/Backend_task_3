@@ -21,8 +21,8 @@
                             Введите ваше имя:
                         </label><input type="text" name="name" id="name" />
                         <?php
-                        if(isset($_COOKIE['user_name'])){
-                            $ckval=$_COOKIE['user_name'];
+                        if(isset($_COOKIE['user_nam'])){
+                            $ckval=$_COOKIE['user_nam'];
                             echo "<span id='name_sp' value='$ckval'></span>";
                         }
                         else{
@@ -180,7 +180,7 @@
             });
             </script>
             <script src="Index.js"></script>
-            <script src="SaveDataIndex.js"></script>
+          <!--  <script src="SaveDataIndex.js"></script>-->
 </main>
 </body>
 </html>
