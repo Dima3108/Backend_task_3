@@ -34,15 +34,7 @@ if(
   preg_match('/^[[a-z]|[а-я]]/i',$name)
  // preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)
   ){
-  /*$cont=preg_match('/[^a-z]/i',$name);
   
-  echo $cont;
-  $cont=preg_match('/[^а-я]/i',$cont);
-  if(preg_match('/[^0-9]/i',$cont)){
-    setcookie('user_nam','имя должно состоять из букв a-z , а-я , цифр 0-9 ',TIME_COOK);
-    return -2;
-  }
-  else{*/
     if(preg_match('/[[a-z]|[а-я]|[0-9]]/i',$name)){
       $len=strlen($name);
       if(preg_match('/([a-z]|[а-я]|[0-9]){'.$len.',}?/i',$name)){
@@ -128,7 +120,7 @@ function valid_email($email){
     $message="";
     $is_empty_attr=SUCCESSR;
     for($i=0;$i<count($attributes_errors);$i++){
-             $val=ContainsAttribute($attributes_n[$i],$attr_htmlid[$i],$attr_cokie[$i]);
+             $val=ContainsAttribute($attributes_n[$i],null,$attr_cokie[$i]);
              if($val!=""){
               $message=$message.$val."<br/>";
               $is_empty_attr=$is_empty_attr-2*($i+1);
@@ -138,12 +130,12 @@ function valid_email($email){
       return $is_empty_attr;
     }
   $status = valid_name($_POST['name']);
-  if ($status != 1) {
-    //return 2;
-    echo "<br>" . $status . "-------------------------------------------------------</br>";
+  if ($status != SUCCESSR) {
+    return 2;
+   // echo "<br>" . $status . "-------------------------------------------------------</br>";
   }
   $status2 = valid_email($_POST['email']);
-  if ($status2 != 1) {
+  if ($status2 != SUCCESSR) {
     //return 2;
   }
     try{
@@ -158,6 +150,7 @@ function valid_email($email){
     }
     catch(Exception $e){
        $message="Проверьте корректность даты";
+    enable_cookie($attr_cokie[2], 'Проверьте корректность даты');
     }
     if($message!=""){
       echo "<div>".$message."</div>";

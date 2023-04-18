@@ -21,15 +21,9 @@
                             Введите ваше имя:
                         </label>
                         <input type="text" name="name" id="name" value="
-                        <?php
-                        if (isset($_COOKIE['user_nam'])) {
-                            $ckval = $_COOKIE['user_nam'];
-echo $ckval;
-
-                        }
-                        ?>
+                       
                         " />
-                        <?php
+                      <!--  <?php
                         if(isset($_COOKIE['user_nam'])){
                             $ckval=$_COOKIE['user_nam'];
                            
@@ -38,23 +32,22 @@ echo $ckval;
                         else{
                            
                         }
-                        ?>
-                        <span id='name_sp'></span>
+                        ?>-->
+                        <label id='name_sp' ><?php
+                        if (!empty($_COOKIE['user_nam'])) {
+                            $ckval = $_COOKIE['user_nam'];
+echo $ckval;
+
+                        }
+                        ?></label>
                 </div>
                 <div class="div_el">
                     
                         <label >
                             Введите ваш email:
-                        </label><input type="email" name="email" id="email" value="
-                        <?php
-                        if (isset($_COOKIE['user_email'])) {
-                            $ckval = $_COOKIE['user_email'];
-                            // GenerateScriptForInsertValue("email",$ckval);
-                            //echo "<span id='email_sp'>".$ckval."</span>";
-                            echo $ckval;
-                        }   
-                        ?>" />
-                        <?php
+                        </label><input type="email" name="email" id="email" >
+                        
+                        <!--<?php
                         if (isset($_COOKIE['user_email'])) {
                             $ckval = $_COOKIE['user_email'];
                            // GenerateScriptForInsertValue("email",$ckval);
@@ -62,8 +55,17 @@ echo $ckval;
                         } else {
                            // echo "<span id='name_sp'></span>";
                         }
+                        ?>-->
+                        <div id="email_sp">
+                           <?php
+                        if (!empty($_COOKIE['user_email'])) {
+                            $ckval = $_COOKIE['user_email'];
+                            // GenerateScriptForInsertValue("email",$ckval);
+                            //echo "<span id='email_sp'>".$ckval."</span>";
+                            echo $ckval;
+                        }   
                         ?>
-                        <span id="email_sp"></span>
+                        </div>
                         
                     
                 </div>
@@ -72,17 +74,20 @@ echo $ckval;
                         Выберите вашу дату рождения:
                     </label>
                     <input type="date" name="date" id="date" />
-                    <!--<?php
+                    <!---->
+                   <div id="date_sp">
+                    <?php
                     if (isset($_COOKIE['user_date'])) {
                         $ckval = $_COOKIE['user_date'];
+                        echo $ckval;
                        // GenerateScriptForInsertValue("date",$ckval);
                        /* echo "<span id='date_sp' >".$ckval
                         ."</span>";*/
                     } else {
                        // echo "<span id='date_sp'></span>";
                     }
-                    ?>-->
-                   <span id="date_sp"></span>
+                    ?>
+                   </div>
                 </div>
                 <div class="div_el">
 
@@ -199,7 +204,7 @@ echo $ckval;
             });
             </script>
           <!--  <script src="Index.js"></script>-->
-          <!-- <script src="SaveDataIndex.js"></script>-->
+           <script src="SaveDataIndex.js"></script>
 </main>
 </body>
 </html>

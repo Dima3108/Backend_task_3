@@ -6,27 +6,27 @@ if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
    
    if($cokie_name!=null){
      // setcookie($cokie_name,"",-1);
-     //disable_cookie($cokie_name);
-        enable_cookie($cokie_name,$_POST[$attr_name]);
+     disable_cookie($cokie_name);
+       // enable_cookie($cokie_name,$_POST[$attr_name]);
    }
-   echo "<script>";
+   /*echo "<script>";
          echo "var s=document.getElementById('$id_spa');";
          echo "s.value='';";
-         echo "</script>"; 
+         echo "</script>"; */
    return "";
 }
 else{
    if($id_spa!=null){
-   echo "<script>";
+   /*echo "<script>";
    echo "var s=document.getElementById('$id_spa');";
    echo "s.value='$error_message';";
-   echo "</script>";
+   echo "</script>";*/
    }
-  /* if($cokie_name!=null){
+   if($cokie_name!=null){
      
    
       enable_cookie($cokie_name,$error_message);
-   }*/
+   }
    return $error_message;
 } 
 }
