@@ -20,9 +20,7 @@
                         <label >
                             Введите ваше имя:
                         </label>
-                        <input type="text" name="name" id="name" value="
-                       
-                        " />
+                        <input type="text" name="name" id="name"  value="<?php if(!empty($_COOKIE['user_nvalue'])){echo $_COOKIE['user_nvalue'];} ?>"/>
                       <!--  <?php
                         if(isset($_COOKIE['user_nam'])){
                             $ckval=$_COOKIE['user_nam'];
@@ -36,7 +34,7 @@
                         <label id='name_sp' ><?php
                         if (!empty($_COOKIE['user_nam'])) {
                             $ckval = $_COOKIE['user_nam'];
-echo $ckval;
+                             echo $ckval;
 
                         }
                         ?></label>
@@ -45,27 +43,19 @@ echo $ckval;
                     
                         <label >
                             Введите ваш email:
-                        </label><input type="email" name="email" id="email" >
+                        </label><input type="email" name="email" id="email" value="<?php if(!empty($_COOKIE['user_evalue'])){echo $_COOKIE['user_evalue'];} ?>">
                         
-                        <!--<?php
-                        if (isset($_COOKIE['user_email'])) {
-                            $ckval = $_COOKIE['user_email'];
-                           // GenerateScriptForInsertValue("email",$ckval);
-                            //echo "<span id='email_sp'>".$ckval."</span>";
-                        } else {
-                           // echo "<span id='name_sp'></span>";
-                        }
-                        ?>-->
-                        <div id="email_sp">
+                        
+                        <label id="email_sp">
                            <?php
-                        if (!empty($_COOKIE['user_email'])) {
-                            $ckval = $_COOKIE['user_email'];
+                        if (isset($_COOKIE['user_email'])) {
+                            $ckval1 = $_COOKIE['user_email'];
                             // GenerateScriptForInsertValue("email",$ckval);
                             //echo "<span id='email_sp'>".$ckval."</span>";
-                            echo $ckval;
+                            echo $ckval1;
                         }   
                         ?>
-                        </div>
+                        </label>
                         
                     
                 </div>
@@ -152,7 +142,7 @@ echo $ckval;
                     <label class="form-check-label">
                         Ваша биография:
 
-                    </label> <textarea name="biograf" id="commit"></textarea>
+                    </label> <textarea name="biograf" id="commit" ><?php if(!empty($_COOKIE['user_cvalue'])){echo $_COOKIE['user_cvalue'];} ?></textarea>
                 </div>
                 <div class="div_el">
                     <label >
@@ -204,7 +194,7 @@ echo $ckval;
             });
             </script>
           <!--  <script src="Index.js"></script>-->
-           <script src="SaveDataIndex.js"></script>
+         <!--  <script src="SaveDataIndex.js"></script>-->
 </main>
 </body>
 </html>

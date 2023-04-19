@@ -10,8 +10,10 @@ var comment_=document.getElementById('commit');
 comment_.addEventListener('change',function(){
 sessionStorage.setItem('commit',comment_.value);
 });
+
 document.addEventListener('DOMContentLoaded',function(){
 if(sessionStorage.getItem('name')!=null){
+ 
   document.getElementById('name').value=sessionStorage.getItem('name');
 }
 if(sessionStorage.getItem('email')!=null){

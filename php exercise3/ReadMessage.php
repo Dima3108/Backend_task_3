@@ -28,8 +28,15 @@ $supres=($_POST['supers']);
     $result->supres=$supres;
     return $result;
   }
-  
+  function uncorrect_name(){
+    SetErrorNameHeader('имя должно состоять из букв a-z , а-я , цифр 0-9 ');
+  enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
+  return -2;
+  }
 function valid_name($name){
+  if(strlen($name)<=0){
+    return uncorrect_name();
+  }
 if(
   preg_match('/^[[a-z]|[а-я]]/i',$name)
  // preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)
@@ -44,26 +51,30 @@ if(
       }
       else{
       //  setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
-      enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
-        return -2;
+     /* enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
+        return -2;*/
+        return uncorrect_name();
       }
 
     }
     else{
      // setcookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ', TIME_COOK);
-     enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
-      return -2;
+    /* enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
+      return -2;*/
+      return uncorrect_name();
     }
  // }
   
 }
 else{
  // setcookie('user_nam','имя должно начинатся с символов a-z или а-я',TIME_COOK);
- enable_cookie('user_nam','имя должно начинатся с символов a-z или а-я');
-  return -1;
+/* enable_cookie('user_nam','имя должно начинатся с символов a-z или а-я');
+  return -1;*/
+  return uncorrect_name();
 }
 }
 function uncorrect_email(){
+  SetErrorEmailHeader('проверьте корректность адреса электронной почты');
    setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
   // disable_cookie('user_email');
     return -1;
@@ -71,7 +82,11 @@ function uncorrect_email(){
 function valid_email($email){
   
   $len=strlen($email);
-  $char0=$email[0];
+  if($len<=0||$email==""||empty($email)){
+    return uncorrect_email();
+  }
+  else return SUCCESSR;
+ /* $char0=$email[0];
   if(preg_match('/[a-z]|[0-9]/i',$char0)){
      $charn=$email[$len-1];
      if(preg_match('/[a-b]/i',$charn)){
@@ -100,6 +115,7 @@ function valid_email($email){
         }
         if($is_dog==SUCCESSR&&$is_point==SUCCESSR){
           disable_cookie('user_email');
+          ClearEmailHeader();
           return SUCCESSR;
         }
         else{
@@ -110,9 +126,15 @@ function valid_email($email){
         return uncorrect_email();
      }
   }
-  else return uncorrect_email();
+  else return uncorrect_email();*/
+}
+function save_commit(){
+  if(isset($_POST['biograf'])&&!empty($_POST['biograf'])){
+    enable_cookie('user_cvalue',$_POST['biograf']);
+  }
 }
   function valid_attributes($pdo){
+    save_commit();
     $attributes_n=array('name','email','date');
     $attributes_errors=array('вы не ввели имя','вы не ввели фамилию','вы не выбрали дату');
     $attr_htmlid=array('name_sp','email_sp','date_sp');
@@ -136,7 +158,7 @@ function valid_email($email){
   }
   $status2 = valid_email($_POST['email']);
   if ($status2 != SUCCESSR) {
-    //return 2;
+    return 3;
   }
     try{
       $datestr=get_content($pdo,htmlspecialchars($_POST['date']));
@@ -145,11 +167,13 @@ function valid_email($email){
       if(strlen($str)<=0||$str==''||$_POST['date']===null||$_POST['date']==null){
         $message="Проверьте корректность даты";
       //  setcookie($attr_cokie[2],'Проверьте корректность даты',365*24*60*60);
+      SetErrorDateHeader('Проверьте корректность даты');
       enable_cookie($attr_cokie[2], 'Проверьте корректность даты');
       }
     }
     catch(Exception $e){
        $message="Проверьте корректность даты";
+    SetErrorDateHeader('Проверьте корректность даты');
     enable_cookie($attr_cokie[2], 'Проверьте корректность даты');
     }
     if($message!=""){
@@ -178,6 +202,9 @@ return;
 for($j=0;$j<count($attr_cokie);$j++){
   disable_cookie($attr_cokie[$j]);
 }
+ClearNameHeader();
+ClearEmailHeader();
+ClearDateHeader();
   //WriteLine("Success");
 }
 require_once 'Index.php';

@@ -10,4 +10,5 @@ require_once 'databaseconnection.php';
 require_once 'Redirect.php';
 require_once 'ContainPostAttribute.php';
 require_once 'Cookie_lib.php';
+require_once 'headers_erros.php';//установка/удаление заголовков валидации.
 ?>
