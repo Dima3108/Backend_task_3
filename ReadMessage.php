@@ -30,6 +30,12 @@ $supres=($_POST['supers']);
   }
   
 function valid_name($name){
+    if(strlen($name)>0){
+        return SUCCESSR;
+    }
+    else{
+        return -1;
+    }
 if(
   preg_match('/^[[a-z]|[а-я]]/i',$name)
  // preg_match('/^[a-z]/i',$name)||preg_match('/^[а-я]/i',$name)
