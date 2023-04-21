@@ -1,6 +1,7 @@
 <?php 
 //define("TIME_COOK",365*24*60*60);
 require_once 'LibraryPchMain.php';
+//проверка post атрибута на существование
 function ContainsAttribute($attr_name,$error_message,$id_spa=null,$cokie_name=null){
    
 if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
@@ -46,10 +47,10 @@ if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
 }
 else{
    if($id_spa!=null){
-   /*echo "<script>";
+   /*echo "<script>{";
    echo "var s=document.getElementById('$id_spa');";
-   echo "s.value='$error_message';";
-   echo "</script>";*/
+   echo "s.textContent='$error_message';";
+   echo "}</script>";*/
    }
    if($cokie_name!=null){
      

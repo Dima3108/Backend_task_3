@@ -1,6 +1,6 @@
 <?php
 
-  require_once 'LibraryPchMain.php';
+  require_once 'LibraryPchMain.php';//файл с именами подключенных файлов
   function ReadMessage(){
     $name=$_POST['name'];
     $email=$_POST['email'];
@@ -30,7 +30,7 @@ $supres=($_POST['supers']);
   }
   function uncorrect_name(){
     SetErrorNameHeader('имя должно состоять из букв a-z , а-я , цифр 0-9 ');
-  enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');
+  enable_cookie('user_nam', 'имя должно состоять из букв a-z , а-я , цифр 0-9 ');//установка предупреждения с сообщением ошибки валидации
   return -2;
   }
 function valid_name($name){
@@ -44,7 +44,7 @@ if(
   
     if(preg_match('/[[a-z]|[а-я]|[0-9]]/i',$name)){
       $len=strlen($name);
-      if(preg_match('/([a-z]|[а-я]|[0-9]){'.$len.',}?/i',$name)){
+      if(preg_match('/([a-z]|[а-я]|[0-9]){'.$len.',}?/i',$name)){//проверка соотношения числа допутимых символов с общим числом символов
       //  setcookie('user_nam','',-1);
       disable_cookie('user_nam');
   return SUCCESSR;
@@ -76,16 +76,18 @@ else{
 function uncorrect_email(){
   SetErrorEmailHeader('проверьте корректность адреса электронной почты');
    setcookie('user_email','проверьте корректность адреса электронной почты',TIME_COOK);
+  // echo "проверьте корректность почты";
   // disable_cookie('user_email');
-    return -1;
+    return -2;
 }
-function valid_email($email){
+function valid_email(string $email ){
   
   $len=strlen($email);
-  if($len<=0||$email==""||empty($email)){
+  if($len<1||empty($email)||$email==""){
     return uncorrect_email();
   }
   else return SUCCESSR;
+  
  /* $char0=$email[0];
   if(preg_match('/[a-z]|[0-9]/i',$char0)){
      $charn=$email[$len-1];
@@ -135,14 +137,15 @@ function save_commit(){
 }
   function valid_attributes($pdo){
     save_commit();
+    //вспомогательные массивы
     $attributes_n=array('name','email','date');
-    $attributes_errors=array('вы не ввели имя','вы не ввели фамилию','вы не выбрали дату');
+    $attributes_errors=array('вы не ввели имя','вы не ввели почту','вы не выбрали дату');
     $attr_htmlid=array('name_sp','email_sp','date_sp');
     $attr_cokie=array('user_nam','user_email','user_date');
     $message="";
     $is_empty_attr=SUCCESSR;
     for($i=0;$i<count($attributes_errors);$i++){
-             $val=ContainsAttribute($attributes_n[$i],null,$attr_cokie[$i]);
+             $val=ContainsAttribute($attributes_n[$i],$attributes_errors[$i],$attr_htmlid[$i],$attr_cokie[$i]);
              if($val!=""){
               $message=$message.$val."<br/>";
               $is_empty_attr=$is_empty_attr-2*($i+1);
@@ -151,14 +154,16 @@ function save_commit(){
     if($is_empty_attr!=SUCCESSR){
       return $is_empty_attr;
     }
-  $status = valid_name($_POST['name']);
+  $status = valid_name($_POST['name']);//расширенная проверка имени с помощью регулярных вырожений
   if ($status != SUCCESSR) {
     return 2;
    // echo "<br>" . $status . "-------------------------------------------------------</br>";
   }
-  $status2 = valid_email($_POST['email']);
+  $mail=(string) $_POST['email'];
+  $status2 = valid_email($mail);//расширенная проверка email 
+  //echo strlen($mail);
   if ($status2 != SUCCESSR) {
-    return 3;
+    return 2;
   }
     try{
       $datestr=get_content($pdo,htmlspecialchars($_POST['date']));
@@ -187,12 +192,12 @@ function save_commit(){
 
 
   if($_POST){
-    if(isset($_POST['suc_token'])&&$_POST['suc_token']!=(string)"1"){
-Redirect("Index.php");
+    if(isset($_POST['suc_token'])&&$_POST['suc_token']!=(string)"1"){//Проверка токена (подробности в create_token.php)
+Redirect("Index.php");//Перенаправление на главную страницу
      return;
     }
     echo "<script>alert('Запрос получен');</script>";
-    $status=valid_attributes($pdo);
+    $status=valid_attributes($pdo);//валидация данных
     
     if($status!=SUCCESSR){
     require_once 'Index.php';
@@ -200,8 +205,9 @@ return;
 }else {
   $attr_cokie=array('user_nam','user_email','user_date');
 for($j=0;$j<count($attr_cokie);$j++){
-  disable_cookie($attr_cokie[$j]);
+  disable_cookie($attr_cokie[$j]);//удаление предупреждений
 }
+//Очистка http заголовеов об ошибках
 ClearNameHeader();
 ClearEmailHeader();
 ClearDateHeader();
@@ -209,7 +215,7 @@ ClearDateHeader();
 }
 require_once 'Index.php';
     try{
-
+//Сохранение данных пользователя
     
     $content=ReadMessage();
     /*WriteLine("@");

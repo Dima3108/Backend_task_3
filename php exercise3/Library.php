@@ -1,5 +1,5 @@
 <?php
-define("SUCCESSR",1);
+define("SUCCESSR",1);//константа обозначающая успешное выполнение действий
 require_once 'databaseconnection.php';
 function StrArrayToString($stringarray)
 {

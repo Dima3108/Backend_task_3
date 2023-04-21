@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--Файл главной страницы приложения-->
 <html>
     <head>
          <link rel="stylesheet" href="/bootstrap/bootstrap.min.css" />
@@ -39,8 +40,9 @@
                         }
                         ?></label>
                 </div>
-                <div class="div_el">
-                    
+            </div>
+            <div class="div_el">
+                    <div>
                         <label >
                             Введите ваш email:
                         </label><input type="email" name="email" id="email" value="<?php if(!empty($_COOKIE['user_evalue'])){echo $_COOKIE['user_evalue'];} ?>">
@@ -48,7 +50,7 @@
                         
                         <label id="email_sp">
                            <?php
-                        if (isset($_COOKIE['user_email'])) {
+                        if (!empty($_COOKIE['user_email'])) {
                             $ckval1 = $_COOKIE['user_email'];
                             // GenerateScriptForInsertValue("email",$ckval);
                             //echo "<span id='email_sp'>".$ckval."</span>";
@@ -56,18 +58,19 @@
                         }   
                         ?>
                         </label>
-                        
+                    </div>  
                     
-                </div>
-                <div class="div_el">
+            </div>
+            <div class="div_el">
+                <div>
                     <label >
                         Выберите вашу дату рождения:
                     </label>
                     <input type="date" name="date" id="date" />
                     <!---->
-                   <div id="date_sp">
+                   <label id="date_sp">
                     <?php
-                    if (isset($_COOKIE['user_date'])) {
+                    if (!empty($_COOKIE['user_date'])) {
                         $ckval = $_COOKIE['user_date'];
                         echo $ckval;
                        // GenerateScriptForInsertValue("date",$ckval);
@@ -77,9 +80,10 @@
                        // echo "<span id='date_sp'></span>";
                     }
                     ?>
-                   </div>
+                   </label>
                 </div>
-                <div class="div_el">
+            </div>
+            <div class="div_el">
 
                     <label>
                         Выберите пол:
@@ -119,8 +123,8 @@
                        <!-- -->
                     </label>
 
-                </div>
-                <div class="div_el">
+            </div>
+            <div class="div_el">
 
                     Выберите количество конечностей:
                   <!--  
@@ -136,21 +140,21 @@
                         }
                     }
                     ?>
-                </div>
-                <div class="div_el">
+            </div>
+            <div class="div_el">
                     
                     <label class="form-check-label">
                         Ваша биография:
 
                     </label> <textarea name="biograf" id="commit" ><?php if(!empty($_COOKIE['user_cvalue'])){echo $_COOKIE['user_cvalue'];} ?></textarea>
-                </div>
-                <div class="div_el">
+            </div>
+            <div class="div_el">
                     <label >
                         С контрактом ознакомлен
 
                     </label> <input type="checkbox" name="AWTC" class="form-check" id="awtc_ch" />
-                </div>
-                <div class="div_el">
+            </div>
+            <div class="div_el">
                     <select name="supers[]"  multiple>
 
                       
@@ -168,30 +172,34 @@
                          }
                         ?>
                     </select>
-                </div>
+            </div>
                 <?php
                 echo "<input type='hidden' id='suc_token' name='suc_token' value='".get_default_tocken()."'>";
                 ?>
               <!--  <input type="hidden" id="suc_token" name="suc_token" />-->
                 <div>
                     <h3>Для отправки формы вы должны согласиться с контрактом. </h3>
-                        </div>
+                </div>
                 <div class="div_el">
                     <button type="submit" class="btn btn-primary" id="res_but">Отправить</button>
                 </div>
-            </div>
+           <!-- </div>-->
         </form>
+        
         <script>
             var but=document.getElementById('awtc_ch');
             document.getElementById('res_but').style="display:none";
-            but.addEventListener('click',function(){
-               if(document.getElementById('awtc_ch').checked==true){
+            but.onclick=function(){
+                 if(document.getElementById('awtc_ch').checked){
                   document.getElementById('res_but').style="display:block";
                }
                else{
-                  document.getElementById('res_but').style="dispaly:none";
-               }    
-            });
+                  document.getElementById('res_but').style="display:none";
+               }  
+            }
+            /*but.addEventListener('click',function(){
+                
+            });*/
             </script>
           <!--  <script src="Index.js"></script>-->
          <!--  <script src="SaveDataIndex.js"></script>-->
