@@ -18,10 +18,10 @@
             <div class="div_el">
                 <div >
                    
-                        <label >
+                        <label class="form-label">
                             Введите ваше имя:
                         </label>
-                        <input type="text" name="name" id="name"  value="<?php if(!empty($_COOKIE['user_nvalue'])){echo $_COOKIE['user_nvalue'];} ?>"/>
+                        <input type="text" name="name" id="name"  value="<?php if(!empty($_COOKIE['user_nvalue'])){echo $_COOKIE['user_nvalue'];} ?>" required/>
                       <!--  <?php
                         if(isset($_COOKIE['user_nam'])){
                             $ckval=$_COOKIE['user_nam'];
@@ -43,9 +43,9 @@
             </div>
             <div class="div_el">
                     <div>
-                        <label >
+                        <label class="form-label">
                             Введите ваш email:
-                        </label><input type="email" name="email" id="email" value="<?php if(!empty($_COOKIE['user_evalue'])){echo $_COOKIE['user_evalue'];} ?>">
+                        </label><input type="email" name="email" id="email" value="<?php if(!empty($_COOKIE['user_evalue'])){echo $_COOKIE['user_evalue'];} ?>" required>
                         
                         
                         <label id="email_sp">
@@ -63,10 +63,10 @@
             </div>
             <div class="div_el">
                 <div>
-                    <label >
+                    <label class="form-label">
                         Выберите вашу дату рождения:
                     </label>
-                    <input type="date" name="date" id="date" />
+                    <input type="date" name="date" id="date" required/>
                     <!---->
                    <label id="date_sp">
                     <?php
@@ -152,7 +152,7 @@
                     <label >
                         С контрактом ознакомлен
 
-                    </label> <input type="checkbox" name="AWTC" class="form-check" id="awtc_ch" />
+                    </label> <input type="checkbox" name="AWTC" class="form-check" id="awtc_ch" required/>
             </div>
             <div class="div_el">
                     <select name="supers[]"  multiple>
@@ -185,8 +185,8 @@
                 </div>
            <!-- </div>-->
         </form>
-        
-        <script>
+       
+       <!-- <script>
             var but=document.getElementById('awtc_ch');
             document.getElementById('res_but').style="display:none";
             but.onclick=function(){
@@ -197,10 +197,8 @@
                   document.getElementById('res_but').style="display:none";
                }  
             }
-            /*but.addEventListener('click',function(){
-                
-            });*/
-            </script>
+          
+            </script>-->
           <!--  <script src="Index.js"></script>-->
          <!--  <script src="SaveDataIndex.js"></script>-->
 </main>
