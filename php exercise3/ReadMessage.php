@@ -253,6 +253,14 @@ require_once 'Index.php';
 
       }
     }
+    $pass_=GenerateRandomPassword();
+    $login_=$email_;
+    $pass_h=get_content($pdo,password_hash($pass_,PASSWORD_DEFAULT));
+
+    $query="INSERT INTO userslogins (userid,email,password) VALUES($id_,$email_,$pass_h)";
+    $result = $pdo->query($query);
+    require_once ('CreateLogin.php');
+    YourData($content->email,$pass_);
     echo "<script>alert('Запрос обработан');</script>";
 
 }

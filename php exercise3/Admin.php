@@ -8,7 +8,7 @@ while($row = $result->fetch()){
     $email=htmlspecialchars($row['email']);
     $date=htmlspecialchars($row['date']);
     $count=htmlspecialchars($row['count_conech']);
-    //$superspos= htmlspecialchars(StrArrayToString(array($row['sposobnost'])));
+    
     $pol=htmlspecialchars($row['pol']);
     $polid=htmlspecialchars($row['polid']);
     $comment=htmlspecialchars($row['comment']);
