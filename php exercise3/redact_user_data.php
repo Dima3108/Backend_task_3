@@ -2,7 +2,8 @@
 require_once 'LibraryPchMain.php';
 function RedactData($pdo,$userid){
     $normalid=get_content($pdo,$userid);
-    $query="SELECT * FROM users WHERE id = $normalid";
+   // $query="SELECT * FROM users WHERE id = $normalid";
+   $query="SELECT * FROM users,POL WHERE users.polid=POL.id AND users.id = $normalid";
     $result=$pdo->query($query);
     while($row=$result->fetch()){
         echo "<div>";
@@ -59,6 +60,7 @@ function RedactData($pdo,$userid){
     }
 }
 if(session_status()==PHP_SESSION_DISABLED){
+
 Redirect('login.php');
 }
 else{
@@ -70,21 +72,25 @@ else{
             
     }*/
     echo<<<_END
-    <!DOCTYPE html>
-    <html>
-       <head>
-          <title>Редакция</title>
-        </head>
-        <body>
-         <header>Изменение данных</header>
-         <main>
-     _END;
+<!DOCTYPE html>
+        <html>
+            <head>
+               <title>Редакция</title>
+            </head>
+              <body>
+                 <header>Изменение данных</header>
+                 <main>
+_END;
+      session_start();  
+   // print_r($_SESSION);
 
 RedactData($pdo,$_SESSION['userid']);
-   echo <<<_END
-   </main>
+   echo<<<_END
+ </main>
    </body>
    </html>
-   _END;
+_END;
+  
+   
 }
 ?>
