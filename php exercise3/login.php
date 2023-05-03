@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>login</title>
-</head>
-    <body>
-        <main>
+
         <?php  
        
-if($_GET){
-   echo <<<_END
-   <form action="login.php" method="post">
-   <div>
-   <label>Ваш логин:</label><input type="email" name="email" required>
-   </div>
-   <div>
-   <label>Ваш пароль:</label><input type="password" name="password" required>
-   <button type="submit">отправить</button>
-   </form>
-   _END;
-}
-else if($_POST){
-     require_once('LibraryPchMain.php');
+ require_once('LibraryPchMain.php');
+ if($_POST){
+    
    $email=get_content($pdo,$_POST['email']);
    $query="SELECT password from userslogins WHERE email = $email";
    $result=$pdo->query($query);
@@ -49,11 +32,12 @@ else if($_POST){
    Redirect('redact_user_data.php');
    }
    else{
-    Redirect('login.php');
+    Redirect('login.html');
    }
    
 }
+else{
+ Redirect('login.html');
+}
+
 ?>
-</main>
-</body>
-    </html>

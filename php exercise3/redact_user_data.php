@@ -58,16 +58,33 @@ function RedactData($pdo,$userid){
         echo "</div>";
     }
 }
-if(session_status()!=PHP_SESSION_ACTIVE){
+if(session_status()==PHP_SESSION_DISABLED){
 Redirect('login.php');
 }
 else{
-    if($_SESSION['isauth']!=SUCCESSR){
-        session_abort();
+    /*if($_SESSION['isauth']!=SUCCESSR){
+       // session_abort();
         Redirect('login.php');
     }
     else{
-            RedactData($pdo,$_SESSION['userid']);
-    }
+            
+    }*/
+    echo<<<_END
+    <!DOCTYPE html>
+    <html>
+       <head>
+          <title>Редакция</title>
+        </head>
+        <body>
+         <header>Изменение данных</header>
+         <main>
+     _END;
+
+RedactData($pdo,$_SESSION['userid']);
+   echo <<<_END
+   </main>
+   </body>
+   </html>
+   _END;
 }
 ?>
