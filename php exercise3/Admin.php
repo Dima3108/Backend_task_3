@@ -2,6 +2,7 @@
 require_once 'LibraryPchMain.php';
 $query="SELECT * FROM users,POL WHERE users.polid=POL.id  ";
 $result = $pdo->query($query);
+$stook=get_date_token();
 while($row = $result->fetch()){
     echo "<div>";
     $name=htmlspecialchars($row['name']);
@@ -54,6 +55,12 @@ while($row = $result->fetch()){
     echo "</label>";
     DIV_Stop();
     echo "</div>";
+    echo "<form action='redact_user_data.php' method='post'>";
+    echo "<input type='hidden' value='admin' name='type'>";
+    echo "<input type='hidden' value='$stook' name='safetok'>";
+    echo "<input type='hidden' value='$id__' name='uid'>";
+    echo "<button type='submit'>изменить данные пользователя</button>";
+    echo "</form >";
 }
 
 ?>
