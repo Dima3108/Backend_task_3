@@ -36,9 +36,9 @@ function RedactData($pdo,$userid){
         $result2 = $pdo->query($query2);
 
         DIV_Start();
-        echo "<label>Имя:" . $name . "</label>";
+        echo "<label>Имя:<input type='text' value='" . $name . "' name='name'></label>";
         DIV_StopStart();
-        echo "<label>почта:" . $email . "</label>";
+        echo "<label>почта:<input type='email' value=''" . $email . "' name='email'></label>";
         DIV_StopStart();
         echo "<label>Дата рождения:" . $date . "</label>";
         DIV_StopStart();
