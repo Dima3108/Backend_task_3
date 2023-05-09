@@ -37,7 +37,7 @@ function RedactData($pdo,$userid){
         DIV_Start();
         echo "<label>Имя:<input type='text' value='" . $name . "' name='name' required></label>";
         DIV_StopStart();
-        echo "<label>почта:<input type='email' value='" . $email . "' name='email' required></label>";
+        echo "<label>почта:<input type='hidden' value='" . $email . "' name='email' required> $email</label>";
         DIV_StopStart();
         echo "<label>Дата рождения:<input type='date' value='" . $date . "' name='date' required></label>";
         DIV_StopStart();
@@ -127,14 +127,14 @@ $chsup[]= htmlspecialchars($row['sposobnost']);
         echo "</label>";
         DIV_Stop();
         echo "<input type='hidden' value='$userid' name='uid'>";
-        $token=get_date_token();
+        $token=get_hash_token();//токен защиты от  CSRF
         echo "<input type='hidden' value='$token' name='toksafe'>";
         echo "<button type='submit'>Сохранить</button>";
         echo "</div>";
         echo "</form>";
     }
 } 
-if($_POST&&isset($_POST['type'])&&($_POST['type']=='admin')&&isset($_POST['safetok'])&&(valid_date_token($_POST['safetok'])==SUCCESSR)&&isset($_POST['uid'])){
+if($_POST&&isset($_POST['type'])&&($_POST['type']==='admin')&&isset($_POST['safetok'])&&(valid_date_token($_POST['safetok'])===SUCCESSR)&&isset($_POST['uid'])){
     echo <<<_END
 <!DOCTYPE html>
         <html>
@@ -146,7 +146,7 @@ if($_POST&&isset($_POST['type'])&&($_POST['type']=='admin')&&isset($_POST['safet
                  <main>
 _END;
    
-        RedactData($pdo, $_GET['uid']);
+        RedactData($pdo, $_POST['uid']);
     
     // print_r($_SESSION);
 
@@ -156,7 +156,8 @@ _END;
    </body>
    </html>
 _END;
-} 
+}
+else{ 
 $sstat=session_start() 
   ; 
 if(session_status()==PHP_SESSION_DISABLED){
@@ -197,5 +198,6 @@ _END;
 _END;
   
    
+}
 }
 ?>

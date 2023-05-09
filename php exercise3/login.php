@@ -2,8 +2,14 @@
         <?php  
        
  require_once('LibraryPchMain.php');
- if($_POST){
-    
+ require_once 'admin_authorize.php';
+ if($_POST&&isset($_POST['safetok'])&&valid_hash_token($_POST['safetok'])==SUCCESSR){
+    if(admin_verfi($_POST['email'],$_POST['password'])==SUCCESSR){
+      session_start();
+      $_SESSION['role']='admin';
+      Redirect('Admin.php');
+    }
+    else{
    $email=get_content($pdo,$_POST['email']);
    $query="SELECT password from userslogins WHERE email = $email";
    $result=$pdo->query($query);
@@ -32,12 +38,13 @@
    Redirect('redact_user_data.php');
    }
    else{
-    Redirect('login.html');
+    Redirect('logins.php');
    }
+}
    
 }
 else{
- Redirect('login.html');
+ Redirect('logins.php');
 }
 
 ?>

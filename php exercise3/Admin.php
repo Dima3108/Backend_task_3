@@ -1,5 +1,9 @@
 <?php
 require_once 'LibraryPchMain.php';
+session_start();
+if(!isset($_SESSION['role'])||$_SESSION['role']!='admin'){
+    Redirect('login.php');
+}
 $query="SELECT * FROM users,POL WHERE users.polid=POL.id  ";
 $result = $pdo->query($query);
 $stook=get_date_token();
