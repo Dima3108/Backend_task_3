@@ -13,9 +13,9 @@ if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
       case 'email':
         enable_cookie('user_evalue',$val_n);
          break;
-      /*case 'date':
+      case 'date':
          enable_cookie('user_dvalue',$val_n);
-         break;*/
+         break;
       default:
          break;
 

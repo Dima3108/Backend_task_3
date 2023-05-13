@@ -21,7 +21,7 @@
                         <label class="form-label">
                             Введите ваше имя:
                         </label>
-                        <input type="text" name="name" id="name"  value="<?php if(!empty($_COOKIE['user_nvalue'])){echo $_COOKIE['user_nvalue'];} ?>" required/>
+                        <input type="text" name="name" id="name"  value="<?php if(!empty($_COOKIE['user_nvalue'])){echo $_COOKIE['user_nvalue'];} ?>" />
                       <!--  <?php
                         if(isset($_COOKIE['user_nam'])){
                             $ckval=$_COOKIE['user_nam'];
@@ -45,7 +45,7 @@
                     <div>
                         <label class="form-label">
                             Введите ваш email:
-                        </label><input type="email" name="email" id="email" value="<?php if(!empty($_COOKIE['user_evalue'])){echo $_COOKIE['user_evalue'];} ?>" required>
+                        </label><input type="email" name="email" id="email" value="<?php if(!empty($_COOKIE['user_evalue'])){echo $_COOKIE['user_evalue'];} ?>" >
                         
                         
                         <label id="email_sp">
@@ -66,7 +66,12 @@
                     <label class="form-label">
                         Выберите вашу дату рождения:
                     </label>
-                    <input type="date" name="date" id="date" required/>
+                    <input type="date" name="date" id="date" value="<?php 
+                    if(!empty($_COOKIE['user_dvalue'])){
+                        echo $_COOKIE['user_dvalue'];
+                    }
+                    
+                    ?>" required/>
                     <!---->
                    <label id="date_sp">
                     <?php
@@ -200,7 +205,7 @@
           
             </script>-->
           <!--  <script src="Index.js"></script>-->
-         <!--  <script src="SaveDataIndex.js"></script>-->
+           <script src="SaveDataIndex.js"></script>
 </main>
 </body>
 </html>

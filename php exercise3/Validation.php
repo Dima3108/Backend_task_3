@@ -59,8 +59,11 @@ function valid_email(string $email)
     $len = strlen($email);
     if ($len < 1 || empty($email) || $email == "") {
         return uncorrect_email();
-    } else
+    } else{
+        enable_cookie('user_evalue',$email);
         return SUCCESSR;
+    }
+        
 
     /* $char0=$email[0];
     if(preg_match('/[a-z]|[0-9]/i',$char0)){

@@ -5,6 +5,8 @@
  
 
   if($_POST){
+    DebuggerAddMessage($debfilename,print_r($_POST));
+    DebuggerAddMessage($debfilename,print_r($_COOKIE));
     if(isset($_POST['suc_token'])&&$_POST['suc_token']!=(string)"1"){//Проверка токена (подробности в create_token.php)
 Redirect("Index.php");//Перенаправление на главную страницу
      return;

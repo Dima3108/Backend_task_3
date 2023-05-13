@@ -1,10 +1,14 @@
 var name_=document.getElementById('name');
 name_.addEventListener('change',function(){
+  
 sessionStorage.setItem('name',name_.value);
 });
 var email_=document.getElementById('email');
 email_.addEventListener('change',function(){
-sessionStorage.setItem('email',email_.value);
+  if(email_.value!=null&&String(email.value).length>0){
+    sessionStorage.setItem('email',email_.value);
+  }
+
 });
 var comment_=document.getElementById('commit');
 comment_.addEventListener('change',function(){

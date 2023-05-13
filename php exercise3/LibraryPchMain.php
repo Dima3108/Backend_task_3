@@ -13,4 +13,6 @@ require_once 'Cookie_lib.php';//Вспомогательные функции д
 require_once 'headers_erros.php';//установка/удаление заголовков валидации.
 require_once 'crypto.php';
 require_once 'Validation.php';//валидация
+require_once 'Debugger.php';//для отладки
+ $debfilename=GetSessionFileName();
 ?>
