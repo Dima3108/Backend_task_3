@@ -8,16 +8,16 @@ return $val;
 }
 function get_date_token(){
     $date=getdate();
-    $tok=$date['year'].":".$date['mon'].":".$date['mday'];
+    $tok=$date['year'].".".$date['mon'].".".$date['mday'];
     return $tok;
 }
 function get_time_token(){
     $date=getdate();
-    return $date['hours'].":".['minutes'].":".['seconds'];
+    return $date['hours'].":".$date['minutes'].":".$date['seconds'];
 }
 function valid_date_token($t){
     $date = getdate();
-    $tok = $date['year'] . ":" . $date['mon'] . ":" . $date['mday'];
+    $tok = $date['year'] . "." . $date['mon'] . "." . $date['mday'];
     if($tok==$t){
         return SUCCESSR;
     }
