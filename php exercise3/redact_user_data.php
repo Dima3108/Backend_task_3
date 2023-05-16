@@ -1,13 +1,19 @@
 <?php
 require_once 'LibraryPchMain.php';
 function RedactData($pdo,$userid){
+    require_once 'LibraryPchMain.php';
+    DebuggerAddMessage($debfilename,'Загрузка страницы редактирования данных пользователя RedactData');
     $normalid=get_content($pdo,$userid);
+    DebuggerAddMessage($debfilename,'id пользователя: "'.$normalid.'".');
+
    // $query="SELECT * FROM users WHERE id = $normalid";
    $query="SELECT * FROM users,POL WHERE users.polid=POL.id AND users.id = $normalid";
+   
     $result=$pdo->query($query);
     while($row=$result->fetch()){
         echo "<form action='data_replacement.php' method='post'>";
         echo "<div>";
+        DebuggerAddMessage($debfilename,'данные пользователя: '.(print_r($row)));
         $name = htmlspecialchars($row['name']);
         $email = htmlspecialchars($row['email']);
         $date = htmlspecialchars($row['date']);
@@ -95,6 +101,7 @@ function RedactData($pdo,$userid){
            /* DIV_Start();
             echo htmlspecialchars($row['sposobnost']);
             DIV_Stop();*/
+            DebuggerAddMessage($debfilename,'суперспособности пользователя: '.(print_r($row)));
 $chsup[]= htmlspecialchars($row['sposobnost']);
         }
         echo " <select name='supers[]'  multiple>";
@@ -132,10 +139,16 @@ $chsup[]= htmlspecialchars($row['sposobnost']);
         echo "<button type='submit'>Сохранить</button>";
         echo "</div>";
         echo "</form>";
+
     }
+    DebuggerAddMessage($debfilename,'данные пользователя загружены');
+    DebuggerAddMessage($debfilename,'конец RedactData');
 } 
-if($_POST&&isset($_POST['type'])&&($_POST['type']==='admin')&&isset($_POST['safetok'])&&(valid_date_token($_POST['safetok'])===SUCCESSR)&&isset($_POST['uid'])){
-    echo <<<_END
+if($_POST){
+    DebuggerAddMessage($debfilename,'post запрос к странице redact_user_data.php');
+    if(isset($_POST['type'])&&($_POST['type']=='admin')&&isset($_POST['safetok'])&&(valid_date_token($_POST['safetok'])==SUCCESSR)&&isset($_POST['uid'])){
+          DebuggerAddMessage($debfilename,'токен подтвержден , загрузка страницы редактирования данных');
+        echo <<<_END
 <!DOCTYPE html>
         <html>
             <head>
@@ -145,34 +158,39 @@ if($_POST&&isset($_POST['type'])&&($_POST['type']==='admin')&&isset($_POST['safe
                  <header>Изменение данных</header>
                  <main>
 _END;
-   
+   session_start();
         RedactData($pdo, $_POST['uid']);
-    
-    // print_r($_SESSION);
-
-
     echo <<<_END
  </main>
    </body>
    </html>
-_END;
+_END; 
+    }
+    else{
+        DebuggerAddMessage($debfilename,'токен некорректен, перенаправление на страницу входа');
+        Redirect('login.php');
+    }
 }
 else{ 
+    DebuggerAddMessage($debfilename,'get запрос к странице redact_user_data.php , проверка данных пользователя');
 $sstat=session_start() 
   ; 
 if(session_status()==PHP_SESSION_DISABLED){
-
+DebuggerAddMessage($debfilename,'ошибка сессии , перенаправление на страницу входа login.php');
 Redirect('login.php');
 }
 else{
     if($_SESSION['isauth']!=SUCCESSR){
        // session_abort();
+       DebuggerAddMessage($debfilename,'ошибка авторизации, перенаправление на страницу входа');
         Redirect('login.php');
     }
     else{
-            
-    }
-   echo<<<_END
+      if($sstat){}else{
+    DebuggerAddMessage($debfilename,'ошибка сессии , повторная аунтефикация,перенаправление на login.php');
+    Redirect('login.php');
+   } 
+          echo<<<_END
 <!DOCTYPE html>
         <html>
             <head>
@@ -182,12 +200,10 @@ else{
                  <header>Изменение данных</header>
                  <main>
 _END;
-   if( $sstat   ){
+   if( $sstat   ){ DebuggerAddMessage($debfilename,'пользователь авторизован, загрузка страницы редактирования данных');
     RedactData($pdo,$_SESSION['userid']);
    }
-   else{
-    Redirect('login.php');
-   }
+   
    // print_r($_SESSION);
 
 
@@ -195,7 +211,9 @@ _END;
  </main>
    </body>
    </html>
-_END;
+_END;     
+    }
+
   
    
 }

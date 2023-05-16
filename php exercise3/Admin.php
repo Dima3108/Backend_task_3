@@ -1,11 +1,16 @@
 <?php
 require_once 'LibraryPchMain.php';
-session_start();
+
+DebuggerAddMessage($debfilename,'запрос к странице администрирования Admin.php');
 if(!isset($_SESSION['role'])||$_SESSION['role']!='admin'){
+    DebuggerAddMessage($debfilename,'пользователь не авторизирован , перенаправление на авторизацию');
     Redirect('login.php');
 }
+DebuggerAddMessage($debfilename,'пользователь авторизован, запуск сессии');
+session_start();
 $query="SELECT * FROM users,POL WHERE users.polid=POL.id  ";
 $result = $pdo->query($query);
+DebuggerAddMessage($debfilename,'получение данных');
 $stook=get_date_token();
 while($row = $result->fetch()){
     echo "<div>";
@@ -66,5 +71,6 @@ while($row = $result->fetch()){
     echo "<button type='submit'>изменить данные пользователя</button>";
     echo "</form >";
 }
+DebuggerAddMessage($debfilename,'данные загружены');
 
 ?>
