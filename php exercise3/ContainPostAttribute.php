@@ -3,7 +3,9 @@
 require_once 'LibraryPchMain.php';
 //проверка post атрибута на существование
 function ContainsAttribute($attr_name,$error_message,$id_spa=null,$cokie_name=null){
-   
+  
+   require_once 'LibraryPchMain.php';
+   DebuggerAddMessage($debfilename,'Начало проверки атрибута '.$attr_name);
 if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
    $val_n=$_POST[$attr_name];
    switch ($attr_name) {
@@ -43,6 +45,8 @@ if(isset($_POST[$attr_name])&&!empty($_POST[$attr_name])){
             break;
 
       }
+      DebuggerAddMessage($debfilename,'проверка прошла успешно');
+      DebuggerAddMessage($debfilename,'конец проверки атрибута '.$attr_name);
    return "";
 }
 else{
@@ -70,6 +74,8 @@ else{
                default:break;
                
    }
+   DebuggerAddMessage($debfilename,'возникли ошибки при проверке');
+      DebuggerAddMessage($debfilename, 'конец проверки атрибута ' . $attr_name);
    return $error_message;
 } 
 }

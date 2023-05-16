@@ -1,4 +1,5 @@
 <?php
+
  class MessageContent
 {
     public $email;
@@ -16,6 +17,8 @@
 }
 function ReadMessage()
 {
+  require_once 'LibraryPchMain.php';
+DebuggerAddMessage($debfilename,'чтение данных post запроса функцией ReadMessage');
   $name = $_POST['name'];
   $email = $_POST['email'];
   $date = $_POST['date'];
@@ -24,11 +27,14 @@ function ReadMessage()
   $biografia = $_POST['biograf'];
   //$awtc=$_POST['AWTC'];
   if (ContainsAttribute("supers", "#") == "") {
+    DebuggerAddMessage($debfilename,'присутствуют суперспособности');
     $supres = ($_POST['supers']);
+    DebuggerAddMessage($debfilename,print_r($supres));
     /* print_r($supres);
     echo "<br>";
     print_r($_POST['supers']);*/
   } else {
+    DebuggerAddMessage($debfilename,'суперспособности отсутсвуют');
     $supres = null;
   }
   $result = new MessageContent();
@@ -39,6 +45,8 @@ function ReadMessage()
   $result->biografia = $biografia;
   $result->kolvo = $kolvo;
   $result->supres = $supres;
+  DebuggerAddMessage($debfilename,'итоговый результат:');
+  DebuggerAddMessage($debfilename,print_r($result));
   return $result;
 }
 ?>

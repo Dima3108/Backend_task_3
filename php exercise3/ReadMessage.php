@@ -5,23 +5,30 @@
  
 
   if($_POST){
+    DebuggerAddMessage($debfilename,'Запрос ReadMessage.php методом post');
     DebuggerAddMessage($debfilename,print_r($_POST));
     DebuggerAddMessage($debfilename,print_r($_COOKIE));
     if(isset($_POST['suc_token'])&&$_POST['suc_token']!=(string)"1"){//Проверка токена (подробности в create_token.php)
-Redirect("Index.php");//Перенаправление на главную страницу
+      DebuggerAddMessage($debfilename,'недействительный токен, перенаправление на главную страницу');
+      Redirect("Index.php");//Перенаправление на главную страницу
      return;
     }
     echo "<script>alert('Запрос получен');</script>";
     $status=valid_attributes($pdo);//валидация данных
     
     if($status!=SUCCESSR){
+      DebuggerAddMessage($debfilename,'произошла ошибка валидации данных ,перенаправление на главную страницу');
     require_once 'Index.php';
 return;
 }else {
+  DebuggerAddMessage($debfilename,'валидация прошла успешно');
   $attr_cokie=array('user_nam','user_email','user_date');
 for($j=0;$j<count($attr_cokie);$j++){
+  DebuggerAddMessage($debfilename,'удаление cookie'.$attr_cokie[$j]);
   disable_cookie($attr_cokie[$j]);//удаление предупреждений
 }
+DebuggerAddMessage($debfilename,'состояние cookie файлов:'.print_r($_COOKIE));
+
 //Очистка http заголовеов об ошибках
 ClearNameHeader();
 ClearEmailHeader();
@@ -70,10 +77,12 @@ require_once 'Index.php';
     }
     $pass_=GenerateRandomPassword();
     $login_=$email_;
+    DebuggerAddMessage($debfilename,'пароль "'.$pass_.'" сгенерирован для пользователя "'.$login_.'".');
     $pass_h=get_content($pdo,password_hash($pass_,PASSWORD_DEFAULT));
 
     $query="INSERT INTO userslogins (userid,email,password) VALUES($id_,$email_,$pass_h)";
     $result = $pdo->query($query);
+    DebuggerAddMessage($debfilename,'переадресация на страницу с логином и паролем для пользователя "'.$login_.'".');
     require_once ('CreateLogin.php');
     YourData($content->email,$pass_);
     echo "<script>alert('Запрос обработан');</script>";
@@ -81,10 +90,13 @@ require_once 'Index.php';
 }
 catch(Exception $e){
   $mes=  $e->getMessage();
+  DebuggerAddMessage($debfilename,'во время работы произошло исключение ');
+  DebuggerAddMessage($debfilename,'текст исключения:'.$mes);
     echo "<strong>! $mes </strong>";
 }
   }
   else if($_GET){
+    DebuggerAddMessage($debfilename,'get запрос к ресурсу ReadMessage.php, перенаправление на главную страницу');
     /*$host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
     $extra = 'Index.php';

@@ -11,6 +11,10 @@ function get_date_token(){
     $tok=$date['year'].":".$date['mon'].":".$date['mday'];
     return $tok;
 }
+function get_time_token(){
+    $date=getdate();
+    return $date['hours'].":".['minutes'].":".['seconds'];
+}
 function valid_date_token($t){
     $date = getdate();
     $tok = $date['year'] . ":" . $date['mon'] . ":" . $date['mday'];

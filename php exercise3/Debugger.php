@@ -7,7 +7,7 @@ function GetSessionFileName(){
 }
 function DebuggerAddMessage($fname,$message){
     $file=fopen($fname,'a');
-    fwrite($file,(get_date_token()).":".$message."\n");
+    fwrite($file,(get_time_token()).":".$message."\n");
     fclose($file);
 }
 ?>

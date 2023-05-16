@@ -16,6 +16,10 @@
       <main>
         <form  action="ReadMessage.php" method="post" class="form-control">
             <div class="div_el">
+                <?php 
+                require_once 'LibraryPchMain.php';
+                DebuggerAddMessage($debfilename,'запрос главной страницы');
+                ?>
                 <div >
                    
                         <label class="form-label">
@@ -24,6 +28,7 @@
                         <input type="text" name="name" id="name"  value="<?php if(!empty($_COOKIE['user_nvalue'])){echo $_COOKIE['user_nvalue'];} ?>" />
                       <!--  <?php
                         if(isset($_COOKIE['user_nam'])){
+                           
                             $ckval=$_COOKIE['user_nam'];
                            
                           
@@ -34,6 +39,7 @@
                         ?>-->
                         <label id='name_sp' ><?php
                         if (!empty($_COOKIE['user_nam'])) {
+
                             $ckval = $_COOKIE['user_nam'];
                              echo $ckval;
 
