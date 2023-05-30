@@ -111,6 +111,46 @@
                
             </div>
           </div>
+          <div>
+            <h2>Аудит на межсайтовый скриппинг <strong>(XSS)</strong></h2>
+            <div>
+                В качестве мер защиты от межсайтового скриппинга используется санетизация  данных форм .
+                <div>
+                    <label>Санетизация данных на главной странице</label>
+                    <img  src="index.php - php exercise3 - Visual Studio Code 30.05.2023 19_17_31.jpg">
+                </div>
+                <div>
+                    <img src="index.php - php exercise3 - Visual Studio Code 30.05.2023 19_22_07.jpg">
+                </div>
+                <div>
+                    <img src="index.php - php exercise3 - Visual Studio Code 30.05.2023 19_25_40.jpg">
+                </div>
+
+            </div>
+          </div>
+          <div>
+            <h2>Аудит sql инъекций</h2>
+            <div>
+                <div>
+                    В качестве мер защиты от sql инъекций , используется
+                    <br>
+                    php функция 
+                    <br>
+                    <code class="cods">
+                        function get_content($pdo, $var)
+                        {
+                        return $pdo->quote($var);
+                        }
+                    </code>
+                    <br>
+                    оборачивающея данные в кавычки ,
+                    <br>
+                    тем самым экранируя данные .
+                    <br>
+
+                </div>
+            </div>
+          </div>
        </main>
     </body>
 </html>
