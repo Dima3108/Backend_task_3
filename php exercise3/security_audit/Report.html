@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Отчет</title>
+        <meta lang="ru" charset="utf-8">
+    </head>
+    <style>
+    .cods{
+        align-content: center;
+        width: 82px;
+        display: block;
+    }
+    </style>
+    <body>
+       <header>
+        <h2>
+            Отчет по безопасноти сайта
+        </h2>
+       </header>
+       <main>
+          <div>
+            <h1>Аудит сайта на <strong>CSRF</strong> </h1>
+            <div>
+                На сайте предприняты мере по защиты от атак типа 
+                <strong>
+                    <i>
+                        Подделка межсайтовых запросов
+                    </i>
+                    .
+                </strong>
+                В качестве мер защиты , сайт использует токенизацию.
+                Фрагменты кода токенизации:
+                <div>
+                    <div>
+                       <code  class="cods">
+                        function get_date_token(){
+                        $date=getdate();
+                        $tok=$date['year'].".".$date['mon'].".".$date['mday'];
+                        return $tok;
+                        }
+                        function valid_date_token($t){
+                        $date = getdate();
+                        $tok = $date['year'] . "." . $date['mon'] . "." . $date['mday'];
+                        if($tok==$t){
+                        return SUCCESSR;
+                        }
+                        else{
+                        return -1;
+                        }
+                        }
+                     </code>
+                    </div>
+                     
+                     <div>
+                        Функция создания и проверки токена даты.
+                        <br>
+                        Данный токен будет менятся с течением времени , что гарантирует невозможность 
+                        <br>
+                        использования полученного токена дольше определенного времени.
+                        <br>
+                        Также стоит отметить , что формы сайта используют 
+                        <br>
+                        хешированный токен. 
+                        
+                        
+                     </div>
+                     <div>
+                        <code class="cods">
+                            function get_hash_token(){
+                            
+                            $rnumber=rand(0, MAXRNUMBER);
+                            $x=(int)($rnumber/12);
+                            $y=(int)($rnumber%12);
+                            $start_tok=get_date_token()."#";
+                            for($i=0;$i<$y;$i++){ $start_tok=$start_tok.TABLE_HASH[$i%strlen(TABLE_HASH)]; } //$offset=$y; 
+                                return sha1($start_tok);
+                            }
+                        </code>
+                     </div>
+                     <div>
+                        Также можно заметить , что данный алгоритм использует генератор случайных чмсел,
+                        <br>
+                        что усложняет анализ алгоритма токенезации и исключает появление 
+                        <br>
+                        одинаковых токенов.
+                     </div>
+                     <div >
+                        <div>
+                            <label>Главная страница</label>
+                            <img src="index.php - php exercise3 - Visual Studio Code 30.05.2023 17_32_30.jpg">
+                        </div>
+                        <div>
+                            <label>Страница авторизации</label>
+                            <img src="index.php - php exercise3 - Visual Studio Code 30.05.2023 17_40_34.jpg">
+                        </div>
+                        <div>
+                            <label>Страница редоктирования данных пользователя</label>
+                            <img src="index.php - php exercise3 - Visual Studio Code 30.05.2023 17_44_52.jpg">
+                        </div>
+                     </div>
+                </div>
+               
+            </div>
+          </div>
+       </main>
+    </body>
+</html>
