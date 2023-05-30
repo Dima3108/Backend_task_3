@@ -139,7 +139,7 @@ $chsup[]= htmlspecialchars($row['sposobnost']);
         echo "<button type='submit'>Сохранить</button>";
         echo "</div>";
         echo "</form>";
-
+        
     }
     DebuggerAddMessage($debfilename,'данные пользователя загружены');
     DebuggerAddMessage($debfilename,'конец RedactData');

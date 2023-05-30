@@ -36,16 +36,34 @@ if($_POST){
             $query = "INSERT INTO users(name,email,date,count_conech,polid,comment) VALUES" . "(
         $name_,$email_,$date_,$count_,$pol_,$comment_
     )";
+             
+            $result=$pdo->query($query);
+            
+            $query = "SELECT id FROM users WHERE name=$name_ AND email = $email_ AND date = $date_ AND count_conech = $count_ AND polid = $pol_ AND comment = $comment_";
+                $result = $pdo->query($query);
+                while ($row = $result->fetch()) {
+                    $id__ = htmlspecialchars($row['id']);//получить новый id
+
+                }
+                 $id_ = get_content($pdo, $id__);
+            /*изменение логина:*/
+            $query = "SELECT email,password FROM userslogins WHERE userid = $id";
+            $result = $pdo->query($query);
+            while ($row = $result->fetch()) {
+                $usphash = htmlspecialchars($row['password']);
+                $uemail = htmlspecialchars($row['email']);
+                $uspassh_ = get_content($pdo, $usphash);
+                $uemail_ = get_content($pdo, $uemail);
+            }
+
+            $query="DELETE FROM userslogins WHERE userid = $id";
+            $result=$pdo->query($query);
+            $query ="INSERT INTO userslogins (email,password,userid) VALUES($uemail_,$uspassh_,$id_)";
             $result=$pdo->query($query);
             $query="DELETE FROM users_supers WHERE iduser = $id";
             if ($content->supres != null) {
-                $query = "SELECT id FROM users WHERE name=$name_ AND email = $email_ AND date = $date_ AND count_conech = $count_ AND polid = $pol_ AND comment = $comment_";
-                $result = $pdo->query($query);
-                while ($row = $result->fetch()) {
-                    $id__ = htmlspecialchars($row['id']);
-
-                }
-                $id_ = get_content($pdo, $id__);
+                
+               
                 for ($i = 0; $i < count($content->supres); $i++) {
                     $supid_ = get_content($pdo, $content->supres[$i]);
                     $query = "INSERT INTO user_supers (iduser ,idsuper) VALUES" . "($id_,$supid_)";
